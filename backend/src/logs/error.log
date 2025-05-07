@@ -1,0 +1,287 @@
+2025-03-01 21:19:41 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:19:46 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:19:51 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:19:56 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:20:01 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:20:06 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:20:11 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:20:15 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:20:20 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:20:25 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:20:32 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:20:36 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:20:41 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:20:46 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:20:51 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:20:56 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:21:01 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:21:01 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-01 21:21:39 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:21:41 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:21:46 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:21:51 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:21:56 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:22:01 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:23:43 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:23:48 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:23:53 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:23:58 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:24:03 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:24:08 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:24:08 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-01 21:24:51 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:24:54 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:24:59 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:25:04 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:25:09 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:25:14 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:25:19 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:25:19 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-01 21:27:09 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:14 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:14 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:19 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:19 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:24 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:24 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:29 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:29 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:34 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:34 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:34 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-01 21:27:42 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:44 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:47 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:49 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:27:55 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:28:00 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:28:05 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:28:05 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:28:10 [ERROR]: Erreur de connexion Arduino: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:28:10 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /dev/ttyACM0: Unknown error code 3
+2025-03-01 21:28:15 [ERROR]: Erreur de connexion Arduino: Opening COM5: Access denied
+2025-03-01 21:28:20 [ERROR]: Erreur de connexion Arduino: Opening COM5: Access denied
+2025-03-01 21:28:20 [ERROR]: Erreur de connexion Arduino au démarrage: Opening COM5: Access denied
+2025-03-01 21:28:25 [ERROR]: Erreur de connexion Arduino: Opening COM5: Access denied
+2025-03-01 21:28:25 [ERROR]: Erreur de connexion Arduino au démarrage: Opening COM5: Access denied
+2025-03-01 21:28:30 [ERROR]: Erreur de connexion Arduino: Opening COM5: Access denied
+2025-03-01 21:28:30 [ERROR]: Erreur de connexion Arduino au démarrage: Opening COM5: Access denied
+2025-03-01 21:28:35 [ERROR]: Erreur de connexion Arduino: Opening COM5: Access denied
+2025-03-01 21:28:35 [ERROR]: Erreur de connexion Arduino au démarrage: Opening COM5: Access denied
+2025-03-01 21:28:40 [ERROR]: Erreur de connexion Arduino: Opening COM5: Access denied
+2025-03-01 21:28:40 [ERROR]: Erreur de connexion Arduino au démarrage: Opening COM5: Access denied
+2025-03-01 21:28:40 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-01 21:29:15 [ERROR]: Erreur de connexion Arduino: Opening COM5: Access denied
+2025-03-01 21:29:20 [ERROR]: Erreur de connexion Arduino: Opening COM5: Access denied
+2025-03-01 21:29:20 [ERROR]: Erreur de connexion Arduino au démarrage: Opening COM5: Access denied
+2025-03-01 21:29:25 [ERROR]: Erreur de connexion Arduino: Opening COM5: Access denied
+2025-03-01 21:29:25 [ERROR]: Erreur de connexion Arduino au démarrage: Opening COM5: Access denied
+2025-03-01 21:29:29 [ERROR]: Erreur de connexion Arduino: Opening /COM5: Access denied
+2025-03-01 21:29:35 [ERROR]: Erreur de connexion Arduino: Opening /COM5: Access denied
+2025-03-01 21:29:35 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: Access denied
+2025-03-01 21:29:40 [ERROR]: Erreur de connexion Arduino: Opening /COM5: Access denied
+2025-03-01 21:29:40 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: Access denied
+2025-03-01 21:29:45 [ERROR]: Erreur de connexion Arduino: Opening /COM5: Access denied
+2025-03-01 21:29:45 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: Access denied
+2025-03-01 21:29:50 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-01 21:29:50 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-01 21:29:55 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-01 21:29:55 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-01 21:29:55 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-01 21:35:51 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-01 21:35:56 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-01 21:35:56 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-01 21:36:01 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-01 21:36:01 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-01 21:36:06 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-01 21:36:06 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-01 21:36:11 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-01 21:36:11 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-01 21:36:16 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-01 21:36:16 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-01 21:36:16 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-02 01:21:35 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:21:40 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:21:40 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:21:45 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:21:45 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:21:50 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:21:50 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:21:55 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:21:55 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:21:57 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:22:06 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:22:11 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:22:11 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:22:16 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:22:16 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:22:21 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:22:21 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:22:26 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:22:31 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:22:31 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:22:36 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:22:36 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:22:38 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:22:43 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:22:43 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:22:50 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:22:55 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:22:55 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:23:00 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:23:00 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:23:05 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:23:05 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:23:07 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:23:12 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:23:12 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:23:17 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:23:17 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:23:22 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:23:22 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:23:27 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:23:32 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:23:32 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:23:37 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:23:37 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:23:42 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:23:42 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:23:47 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:23:52 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:23:52 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:23:58 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:24:03 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:24:03 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:24:08 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:24:08 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:24:13 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:24:13 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:24:18 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:24:18 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:24:23 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:24:23 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:24:23 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-02 01:25:55 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:26:00 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:26:00 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:26:05 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:26:05 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:26:10 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:26:10 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:26:15 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:26:15 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:26:20 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:26:20 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:26:20 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-02 01:26:46 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:26:51 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:26:51 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:26:56 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:26:56 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:27:01 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:27:01 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:27:06 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:27:06 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:27:11 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:27:11 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:27:11 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-02 01:27:41 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:27:46 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:27:46 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:27:51 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:27:51 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:27:56 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:27:56 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:28:01 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:28:01 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:28:06 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:28:06 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:28:06 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-02 01:28:39 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:28:42 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:28:43 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:28:47 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:28:49 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:28:53 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:28:58 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:28:58 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:29:03 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:29:08 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:29:08 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:29:13 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:29:13 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:29:18 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:29:18 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:29:23 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:29:23 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:29:28 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:29:28 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:29:28 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-02 01:29:54 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:29:56 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:02 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:06 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:09 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:14 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:18 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:22 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:25 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:29 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:33 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:36 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:38 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:45 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:49 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:55 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:30:59 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:31:03 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:31:08 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:31:08 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:31:13 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:31:13 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:31:18 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:31:18 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:31:23 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:31:23 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:31:28 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 01:31:28 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: File not found
+2025-03-02 01:31:28 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-02 02:15:18 [ERROR]: Erreur lors de l'analyse des données Arduino: Unexpected token 'S', "Système d'"... is not valid JSON
+2025-03-02 02:15:18 [ERROR]: Erreur de connexion Arduino au démarrage: Unexpected token 'S', "Système d'"... is not valid JSON
+2025-03-02 02:23:18 [ERROR]: Erreur lors de l'analyse des données Arduino: Unexpected token 'D', "Début de l"... is not valid JSON
+2025-03-02 02:23:18 [ERROR]: Erreur de connexion Arduino au démarrage: Unexpected token 'D', "Début de l"... is not valid JSON
+2025-03-02 02:23:23 [ERROR]: Erreur lors de l'analyse des données Arduino: Unexpected token 'D', "Distributi"... is not valid JSON
+2025-03-02 02:23:23 [ERROR]: Erreur de connexion Arduino au démarrage: Unexpected token 'D', "Distributi"... is not valid JSON
+2025-03-02 02:23:24 [ERROR]: Erreur lors de l'analyse des données Arduino: Unexpected token 'D', "Début de l"... is not valid JSON
+2025-03-02 02:23:24 [ERROR]: Erreur de connexion Arduino au démarrage: Unexpected token 'D', "Début de l"... is not valid JSON
+2025-03-02 02:23:24 [ERROR]: Erreur lors de l'analyse des données Arduino: Unexpected token 'F', "Fin de l'a"... is not valid JSON
+2025-03-02 02:23:24 [ERROR]: Erreur de connexion Arduino au démarrage: Unexpected token 'F', "Fin de l'a"... is not valid JSON
+2025-03-02 02:23:24 [ERROR]: Erreur lors de l'analyse des données Arduino: Unexpected token 'F', "Fin de l'arrosage" is not valid JSON
+2025-03-02 02:23:24 [ERROR]: Erreur de connexion Arduino au démarrage: Unexpected token 'F', "Fin de l'arrosage" is not valid JSON
+2025-03-02 02:26:21 [ERROR]: Erreur de connexion Arduino: Opening /COM5: Access denied
+2025-03-02 02:26:26 [ERROR]: Erreur de connexion Arduino: Opening /COM5: Access denied
+2025-03-02 02:26:26 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: Access denied
+2025-03-02 02:26:31 [ERROR]: Erreur de connexion Arduino: Opening /COM5: Access denied
+2025-03-02 02:26:31 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: Access denied
+2025-03-02 02:26:36 [ERROR]: Erreur de connexion Arduino: Opening /COM5: Access denied
+2025-03-02 02:26:36 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: Access denied
+2025-03-02 02:26:41 [ERROR]: Erreur de connexion Arduino: Opening /COM5: Access denied
+2025-03-02 02:26:41 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: Access denied
+2025-03-02 02:26:46 [ERROR]: Erreur de connexion Arduino: Opening /COM5: Access denied
+2025-03-02 02:26:46 [ERROR]: Erreur de connexion Arduino au démarrage: Opening /COM5: Access denied
+2025-03-02 02:26:46 [ERROR]: Nombre maximum de tentatives de reconnexion atteint
+2025-03-02 07:41:14 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 07:41:14 [ERROR]: Erreur Arduino: Opening /COM5: File not found
+2025-03-02 12:53:56 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 12:53:56 [ERROR]: Erreur Arduino: Opening /COM5: File not found
+2025-03-02 12:54:01 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 12:54:01 [ERROR]: Erreur Arduino: Opening /COM5: File not found
+2025-03-02 12:54:06 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 12:54:07 [ERROR]: Erreur Arduino: Opening /COM5: File not found
+2025-03-02 12:54:12 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 12:54:12 [ERROR]: Erreur Arduino: Opening /COM5: File not found
+2025-03-02 12:54:17 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 12:54:17 [ERROR]: Erreur Arduino: Opening /COM5: File not found
+2025-03-02 12:54:22 [ERROR]: Erreur de connexion Arduino: Opening /COM5: File not found
+2025-03-02 12:54:22 [ERROR]: Erreur Arduino: Opening /COM5: File not found
+2025-03-02 12:54:22 [ERROR]: Nombre maximum de tentatives de reconnexion atteint

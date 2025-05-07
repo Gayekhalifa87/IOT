@@ -1,0 +1,363 @@
+<div class="schedule-panel">
+  <div class="header-container">
+    <h2>Tableau des programmations d'alimentation</h2>
+    <a (click)="navigateToAlimentation()" class="voir-plus" style="cursor: pointer;">Voir le Stock</a>
+  </div>
+  <div class="schedule-content">
+    <!-- Section Nourritures -->
+    <div class="schedule-section">
+      <h3>Nourritures</h3>
+      <button class="btn-add" (click)="openAddModal('Aliment', addFoodModal)" [disabled]="nourritures.length >= 3">Ajouter</button>
+      <div class="time-slots" *ngIf="nourritures.length > 0; else noProgramsNourritures">
+        <div class="time-slot" *ngFor="let program of nourritures; let i = index" 
+             [ngClass]="{'expiring': isProgramExpiringSoon(program), 'active': program.automaticFeeding}">
+          <div class="time-container">
+            <div class="time-input" *ngIf="program.automaticFeeding">
+              <label>Heure Début</label>
+              <div class="time-control">
+                <input type="time" [ngModel]="program.programStartTime" disabled>
+                <i class="icon-clock"></i>
+              </div>
+            </div>
+            <div class="time-input" *ngIf="program.automaticFeeding">
+              <label>Heure Fin</label>
+              <div class="time-control">
+                <input type="time" [ngModel]="program.programEndTime" disabled>
+                <i class="icon-clock"></i>
+              </div>
+            </div>
+          </div>
+          <div class="program-details">
+            <p>Type : {{ getStockType(program.stockId || '') }}</p>
+            <p>Quantité : {{ program.quantity }} {{ getStockUnit(program.stockId) }}</p>
+            <p *ngIf="program.automaticFeeding">Automatique : Oui</p>
+            <p *ngIf="!program.automaticFeeding">Manuel</p>
+          </div>
+          <div class="action-buttons">
+            <i class="icon-edit" (click)="editProgram('Aliment', i)">✏️</i>
+            <i class="icon-delete" (click)="deleteProgram('Aliment', i)" title="Archiver">🗑️</i>
+          </div>
+        </div>
+      </div>
+      <ng-template #noProgramsNourritures>
+        <p>Pas de programmes disponibles pour l'instant.</p>
+      </ng-template>
+    </div>
+
+    <!-- Section Eau -->
+    <div class="schedule-section">
+      <h3>Eau</h3>
+      <button class="btn-add" (click)="openAddModal('Eau', addWaterModal)" [disabled]="eau.length >= 3">Ajouter</button>
+      <div class="time-slots" *ngIf="eau.length > 0; else noProgramsEau">
+        <div class="time-slot" *ngFor="let program of eau; let i = index" 
+             [ngClass]="{'expiring': isProgramExpiringSoon(program), 'active': program.automaticFeeding}">
+          <div class="time-container">
+            <div class="time-input" *ngIf="program.automaticFeeding">
+              <label>Heure Début</label>
+              <div class="time-control">
+                <input type="time" [ngModel]="program.programStartTime" disabled>
+                <i class="icon-clock"></i>
+              </div>
+            </div>
+            <div class="time-input" *ngIf="program.automaticFeeding">
+              <label>Heure Fin</label>
+              <div class="time-control">
+                <input type="time" [ngModel]="program.programEndTime" disabled>
+                <i class="icon-clock"></i>
+              </div>
+            </div>
+          </div>
+          <div class="program-details">
+            <p>Quantité : {{ program.quantity }} L</p>
+            <p *ngIf="program.automaticFeeding">Automatique : Oui</p>
+            <p *ngIf="!program.automaticFeeding">Manuel</p>
+          </div>
+          <div class="action-buttons">
+            <i class="icon-edit" (click)="editProgram('Eau', i)">✏️</i>
+            <i class="icon-delete" (click)="deleteProgram('Eau', i)" title="Archiver">🗑️</i>
+          </div>
+        </div>
+      </div>
+      <ng-template #noProgramsEau>
+        <p>Pas de programmes disponibles pour l'instant.</p>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<!-- Notification Bar -->
+<div *ngIf="showNotificationBar" class="notification-bar" [ngClass]="notificationType">
+  {{ notificationMessage }}
+</div>
+
+<!-- Modale pour la Nourriture -->
+<ng-template #addFoodModal let-modal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{ editIndex !== null ? 'Modifier un programme' : 'Ajouter un programme (Nourriture)' }}</h4>
+        <button type="button" class="close" aria-label="Fermer" (click)="modal.dismiss()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <form #feedingForm="ngForm" (ngSubmit)="saveProgram()">
+        <div class="modal-body">
+          <div class="form-group-row top-inputs">
+            <div class="form-group col-6">
+              <label>Quantité *</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="newQuantity"
+                name="quantity"
+                required
+                #quantity="ngModel"
+                min="0"
+                (ngModelChange)="onQuantityChange()"
+                [ngClass]="{'is-invalid': isStockInsufficient}"
+              >
+              <div class="stock-info" *ngIf="currentStockQuantity !== null">
+                <p [ngClass]="{'text-danger': isStockInsufficient, 'text-success': !isStockInsufficient}">
+                  Reste en stock : {{ currentStockQuantity - newQuantity }} {{ currentStockUnit }}
+                </p>
+              </div>
+              <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)" class="alert alert-danger">
+                <div *ngIf="quantity.errors?.['required']">La quantité est requise</div>
+              </div>
+              <div *ngIf="isStockInsufficient" class="alert alert-danger">
+                Quantité insuffisante en stock
+              </div>
+            </div>
+
+            <div class="form-group col-6">
+              <label>Stock *</label>
+              <select
+                class="form-control"
+                [(ngModel)]="newStockId"
+                name="stockId"
+                required
+                (change)="onStockChange()"
+              >
+                <option [ngValue]="''" disabled>Sélectionnez un stock</option>
+                <option *ngFor="let stock of filteredNourritureStocks" [ngValue]="stock._id">{{ stock.type }}</option>
+              </select>
+              <div *ngIf="feedingForm.controls['stockId']?.invalid && (feedingForm.controls['stockId']?.dirty || feedingForm.controls['stockId']?.touched)" 
+                   class="alert alert-danger">
+                <div *ngIf="feedingForm.controls['stockId']?.errors?.['required']">La sélection d'un stock est requise</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Automatique</label>
+            <input
+              type="checkbox"
+              [(ngModel)]="newAutomaticFeeding"
+              name="automaticFeeding"
+              (change)="onAutomaticFeedingChange()"
+            >
+          </div>
+
+          <div class="form-group-row" *ngIf="newAutomaticFeeding">
+            <div class="form-group col-6">
+              <label>Heure Début du Programme *</label>
+              <div class="time-control">
+                <input
+                  type="time"
+                  class="form-control"
+                  [(ngModel)]="newProgramStartTime"
+                  name="programStartTime"
+                  required
+                  #programStartTime="ngModel"
+                  [min]="currentTimeString"
+                  (change)="validateTimeInputs()"
+                >
+                <i class="icon-clock"></i>
+              </div>
+              <div *ngIf="programStartTime.invalid && (programStartTime.dirty || programStartTime.touched)" 
+                   class="alert alert-danger">
+                <div *ngIf="programStartTime.errors?.['required']">L'heure de début est requise</div>
+              </div>
+              <div *ngIf="timeErrors.startTime" class="alert alert-danger">
+                {{ timeErrors.startTime }}
+              </div>
+            </div>
+
+            <div class="form-group col-6">
+              <label>Heure de fin du programme *</label>
+              <div class="time-control">
+                <input
+                  type="time"
+                  class="form-control"
+                  [(ngModel)]="newProgramEndTime"
+                  name="programEndTime"
+                  required
+                  #programEndTime="ngModel"
+                  [min]="newProgramStartTime || currentTimeString"
+                  (change)="validateTimeInputs()"
+                >
+                <i class="icon-clock"></i>
+              </div>
+              <div *ngIf="programEndTime.invalid && (programEndTime.dirty || programEndTime.touched)" 
+                   class="alert alert-danger">
+                <div *ngIf="programEndTime.errors?.['required']">L'heure de fin est requise</div>
+              </div>
+              <div *ngIf="timeErrors.endTime" class="alert alert-danger">
+                {{ timeErrors.endTime }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Notes</label>
+            <textarea
+              class="form-control"
+              [(ngModel)]="newNotes"
+              name="notes"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Annuler</button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!feedingForm.form.valid || isStockInsufficient || (newAutomaticFeeding && (timeErrors.startTime || timeErrors.endTime))"
+          >
+            {{ editIndex !== null ? 'Modifier' : 'Enregistrer' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Modale pour l'Eau -->
+<ng-template #addWaterModal let-modal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{ editIndex !== null ? 'Modifier un programme' : 'Ajouter un programme (Eau)' }}</h4>
+        <button type="button" class="close" aria-label="Fermer" (click)="modal.dismiss()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <form #feedingForm="ngForm" (ngSubmit)="saveProgram()">
+        <div class="modal-body">
+          <div class="form-group-row top-inputs">
+            <div class="form-group col-6">
+              <label>Quantité *</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="newQuantity"
+                name="quantity"
+                required
+                #quantity="ngModel"
+                min="0"
+                (ngModelChange)="onQuantityChange()"
+                [ngClass]="{'is-invalid': isWaterQuantityInsufficient}"
+              >
+              <div class="stock-info">
+                <p>Quantité mesurée par le capteur d’eau : {{ waterQuantity }} L</p>
+                <p [ngClass]="{'text-danger': isWaterQuantityInsufficient, 'text-success': !isWaterQuantityInsufficient}">
+                  Reste disponible : {{ waterQuantity - newQuantity }} L
+                </p>
+              </div>
+              <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)" class="alert alert-danger">
+                <div *ngIf="quantity.errors?.['required']">La quantité est requise</div>
+                <div *ngIf="quantity.errors?.['min']">La quantité ne peut pas être négative</div>
+              </div>
+              <div *ngIf="isWaterQuantityInsufficient" class="alert alert-danger">
+                Quantité demandée supérieure à la quantité disponible mesurée par le capteur
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Automatique</label>
+            <input
+              type="checkbox"
+              [(ngModel)]="newAutomaticFeeding"
+              name="automaticFeeding"
+              (change)="onAutomaticFeedingChange()"
+            >
+          </div>
+
+          <div class="form-group-row" *ngIf="newAutomaticFeeding">
+            <div class="form-group col-6">
+              <label>Heure Début du Programme *</label>
+              <div class="time-control">
+                <input
+                  type="time"
+                  class="form-control"
+                  [(ngModel)]="newProgramStartTime"
+                  name="programStartTime"
+                  required
+                  #programStartTime="ngModel"
+                  [min]="currentTimeString"
+                  (change)="validateTimeInputs()"
+                >
+                <i class="icon-clock"></i>
+              </div>
+              <div *ngIf="programStartTime.invalid && (programStartTime.dirty || programStartTime.touched)" 
+                   class="alert alert-danger">
+                <div *ngIf="programStartTime.errors?.['required']">L'heure de début est requise</div>
+              </div>
+              <div *ngIf="timeErrors.startTime" class="alert alert-danger">
+                {{ timeErrors.startTime }}
+              </div>
+            </div>
+
+            <div class="form-group col-6">
+              <label>Heure de fin du programme *</label>
+              <div class="time-control">
+                <input
+                  type="time"
+                  class="form-control"
+                  [(ngModel)]="newProgramEndTime"
+                  name="programEndTime"
+                  required
+                  #programEndTime="ngModel"
+                  [min]="newProgramStartTime || currentTimeString"
+                  (change)="validateTimeInputs()"
+                >
+                <i class="icon-clock"></i>
+              </div>
+              <div *ngIf="programEndTime.invalid && (programEndTime.dirty || programEndTime.touched)" 
+                   class="alert alert-danger">
+                <div *ngIf="programEndTime.errors?.['required']">L'heure de fin est requise</div>
+              </div>
+              <div *ngIf="timeErrors.endTime" class="alert alert-danger">
+                {{ timeErrors.endTime }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Notes</label>
+            <textarea
+              class="form-control"
+              [(ngModel)]="newNotes"
+              name="notes"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Annuler</button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!feedingForm.form.valid || isWaterQuantityInsufficient || (newAutomaticFeeding && (timeErrors.startTime || timeErrors.endTime))"
+          >
+            {{ editIndex !== null ? 'Modifier' : 'Enregistrer' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

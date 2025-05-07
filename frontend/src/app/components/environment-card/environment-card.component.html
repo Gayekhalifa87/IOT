@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-header">
+    <h3>
+      {{title}}
+      <ng-container *ngIf="isIconDefinition(); else imageIcon">
+        <fa-icon [icon]="currentIcon" [class.rotate]="isActive" [class.colored-icon]="isColoredIcon()"></fa-icon>
+      </ng-container>
+      <ng-template #imageIcon>
+        <img [src]="currentIcon" class="icon-image" />
+      </ng-template>
+    </h3>
+  </div>
+  <div class="card-body" *ngIf="!hasControls">
+    <div class="value">{{value}}{{unit === 'C' ? '°' : ''}} {{unit}}</div>
+  </div>
+  <div class="card-body controls" *ngIf="hasControls">
+    <!-- Nouvelle section pour l'image de la lampe -->
+    <div class="lightbulb-image">
+      <img [src]="isActive ? lightbulbOn : lightbulbOff" alt="Lightbulb" class="lightbulb-icon" />
+    </div>
+    <!-- Boutons Allumer/Éteindre avec commandes manuelles -->
+    <div class="buttons">
+      <button class="btn-on" [disabled]="isActive || isLoading" (click)="turnOnLamp()">Allumer</button>
+      <button class="btn-off" [disabled]="!isActive || isLoading" (click)="turnOffLamp()">Éteindre</button>
+    </div>
+    <!-- Statut -->
+    <div class="status">
+      Status <span class="status-indicator" [class.on]="isActive"></span>
+      <span *ngIf="isLoading" class="loading-indicator">(en cours...)</span>
+    </div>
+  </div>
+</div>

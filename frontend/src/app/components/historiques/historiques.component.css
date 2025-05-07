@@ -1,0 +1,344 @@
+/* Conteneur global */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+
+/* Contenu principal */
+.main-content {
+  flex: 1;
+  margin-left: 240px; /* Laisser de l'espace pour le sidebar */
+  padding: 20px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center; /* Centrer horizontalement */
+}
+
+/* Conteneur de l'historique */
+/* Conteneur de l'historique */
+.historique-container {
+  max-width: 1100px; /* Largeur maximale du contenu */
+  width: 100%; /* Prend toute la largeur disponible */
+  padding: 24px;
+  /* border: 3px solid #c0c0c0; Bordure plus épaisse */
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ajout de la transition */
+}
+
+.historique-container:hover {
+  transform: translateY(-5px); /* Déplace le conteneur vers le haut */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Augmente l'ombre */
+}
+
+/* Titre de la page */
+.historique-container h2 {
+  margin-top: 0;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+/* Cartes */
+.carte {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ajout de la transition */
+}
+
+.carte:hover {
+  transform: translateY(-5px); /* Déplace la carte vers le haut */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Augmente l'ombre */
+}
+
+.carte-filtre {
+  background-color: #f8f9fa;
+}
+
+.carte-entete {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eaeaea;
+  background-color: #f8f9fa;
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #2c3e50;
+  }
+}
+
+.carte-contenu {
+  padding: 16px;
+}
+
+/* Formulaires */
+.filtre-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: flex-end;
+
+  .form-group {
+    margin-bottom: 15px;
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: #4a5568;
+    }
+
+    select, input {
+      padding: 8px 12px;
+      border: 1px solid #cbd5e0;
+      border-radius: 4px;
+      font-size: 14px;
+      width: 200px;
+    }
+  }
+}
+
+.dates-container {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+
+  &.btn-primary {
+    background-color: #4299e1;
+    color: white;
+
+    &:hover {
+      background-color: #3182ce;
+    }
+  }
+
+  &.btn-secondary {
+    background-color: #e2e8f0;
+    color: #4a5568;
+
+    &:hover {
+      background-color: #cbd5e0;
+    }
+  }
+}
+
+/* Graphiques */
+.charts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-placeholder {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border: 1px dashed #cbd5e0;
+}
+
+.chart-info {
+  width: 100%;
+  padding: 20px;
+}
+
+.chart-title {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.chart-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-legend {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.chart-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 5px;
+
+  &.temperature-dot {
+    background-color: #ff6384;
+  }
+
+  &.humidity-dot {
+    background-color: #36a2eb;
+  }
+}
+
+.chart-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #eaeaea;
+  }
+
+  th {
+    background-color: #f8f9fa;
+    font-weight: 500;
+  }
+}
+
+/* Tableaux */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eaeaea;
+  }
+
+  th {
+    background-color: #f8f9fa;
+    font-weight: 500;
+    color: #4a5568;
+  }
+
+  tr:hover {
+    background-color: #f8f9fa;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.data-table td {
+  white-space: nowrap; /* Empêche le texte de passer à la ligne */
+  max-width: 200px; /* Limite la largeur de la colonne */
+  overflow: hidden; /* Cache le texte qui dépasse */
+  text-overflow: ellipsis; /* Ajoute des points de suspension si le texte est trop long */
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+
+  button {
+    min-width: 40px;
+    height: 40px;
+    padding: 0 0.75rem;
+    border: 1px solid var(--border-color);
+    background-color: white;
+    color: var(--secondary-color);
+    border-radius: 0.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background-color: var(--background-color);
+      border-color: var(--primary-color);
+    }
+
+    &.active {
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      border-color: var(--primary-color);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .pagination-nav {
+    font-size: 0.875rem;
+    padding: 0 1rem;
+  }
+
+  .ellipsis {
+    color: var(--secondary-color);
+    padding: 0 0.5rem;
+  }
+
+  .pagination-info {
+    margin-left: 1rem;
+    color: var(--secondary-color);
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    gap: 0.25rem;
+
+    button {
+      min-width: 35px;
+      height: 35px;
+      padding: 0 0.5rem;
+    }
+
+    .pagination-info {
+      width: 100%;
+      text-align: center;
+      margin-top: 1rem;
+      margin-left: 0;
+    }
+  }
+}

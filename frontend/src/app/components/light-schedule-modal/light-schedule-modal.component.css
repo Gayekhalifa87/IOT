@@ -1,0 +1,155 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .light-schedule-section {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+  }
+  
+  /* Styles supplémentaires pour le reste de la modal (en-tête, corps, pied de page) */
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .modal-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .close:hover {
+    color: #000;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    outline: none;
+  }
+  
+  .text-danger {
+    font-size: 0.8rem;
+    color: #dc3545;
+    margin-top: 5px;
+    display: block;
+  }
+  
+  .form-check {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .form-check-input {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .form-check-label {
+    font-size: 0.9rem;
+    color: #555;
+    cursor: pointer;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+  }
+  
+  .btn-outline-secondary {
+    background-color: transparent;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+  }
+  
+  .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-primary:disabled {
+    background-color: #b3d7ff;
+    cursor: not-allowed;
+  }
+  
+  .btn:active {
+    transform: scale(0.98);
+  }

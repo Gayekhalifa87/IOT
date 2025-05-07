@@ -1,0 +1,43 @@
+<div class="app-container">
+    <div class="main-content">
+      <div class="dashboard-wrapper">
+        <app-header></app-header>
+        <div class="dashboard-container">
+          <div class="environment-section">
+            <app-environment-card
+              title="Temperature"
+              icon="thermometer"
+              [value]="temperatureValue"
+              >
+            </app-environment-card>
+
+            <app-environment-card
+              title="Humidity"
+              icon="droplet"
+              [value]="humidityValue"
+              >
+            </app-environment-card>
+
+            <app-environment-card
+              title="Light"
+              icon="sun"
+              [value]="lightValue"
+              >
+            </app-environment-card>
+
+            <app-environment-card
+              title="Lampe"
+              icon="fan"
+              [hasControls]="true"
+              [isActive]="isLampActive">
+            </app-environment-card>
+
+          </div>
+          
+          <app-control-panel></app-control-panel>
+          
+          <app-feeding-schedule></app-feeding-schedule>
+        </div>
+      </div>
+    </div>
+  </div>

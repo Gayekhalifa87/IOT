@@ -1,0 +1,153 @@
+
+<h1 id="titre" class="text-center my-4">GESTION VACCINATIONS</h1>
+
+<div class="container-fluid px-3">
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    
+    <!-- Section Vaccinations à venir -->
+    <div class="col">
+      <div class="card">
+        <div class="card-header">Vaccinations à venir</div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Nombre</th>
+                  <th>Statut</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>12/05/2024</td>
+                  <td>Influenza</td>
+                  <td>50</td>
+                  <td id="statut">À venir</td>
+                  <td>
+                    <button class="btn1 btn-info btn-sm"><i class="fas fa-check"></i></button>
+                    <button class="btn1 btn-primary btn-sm">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>12/03/2024</td>
+                  <td>Newcastle</td>
+                  <td>30</td>
+                  <td>À venir</td>
+                  <td>
+                    <button class="btn1 btn-info btn-sm"><i class="fas fa-check"></i></button>
+                    <button class="btn1 btn-primary btn-sm"><i class="fas fa-edit"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Calendrier des vaccinations -->
+    <div class="col">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>Calendrier des vaccinations</span>
+          <i class="fas fa-calendar" (click)="toggleDates()" style="cursor: pointer;"></i>
+        </div>
+        <div class="card-body text-center">
+          <div class="days-grid d-flex flex-wrap justify-content-center">
+            <div *ngFor="let day of days" class="day-header flex-fill text-center p-2">{{ day }}</div>
+          </div>
+          <div class="dates-grid d-flex flex-wrap justify-content-center overflow-auto mt-2">
+            <div *ngFor="let dateObj of currentWeekDates" 
+                 class="date-box flex-fill text-center p-2 m-1"
+                 [class.selected]="selectedDate?.date === dateObj.date"
+                 (click)="selectDate(dateObj)">
+              <span class="date-index fw-bold">{{ dateObj.index }}.</span> {{ dateObj.day }} {{ dateObj.date }}
+            </div>
+          </div>
+          <div *ngIf="showDates" class="overflow-auto mt-3">
+            <div class="dates-grid d-flex flex-wrap justify-content-center">
+              <div *ngFor="let dateObj of dates" 
+                   class="date-box flex-fill text-center p-2 m-1 border rounded"
+                   [class.selected]="selectedDate?.date === dateObj.date"
+                   (click)="selectDate(dateObj)">
+                <span class="date-index fw-bold">{{ dateObj.index }}.</span> {{ dateObj.day }} {{ dateObj.date }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
+    <!-- Section Nouvelle vaccination -->
+    <div class="col">
+      <div class="card">
+        <div class="card-header">Nouvelle vaccination</div>
+        <div class="card-body">
+          <form>
+            <div class="mb-3">
+              <label for="vaccineType" class="form-label">Type de vaccin</label>
+              <input type="text" class="form-control" id="vaccineType" value="Influenza Aviaire">
+            </div>
+            <div class="mb-3">
+              <label for="vaccineDate" class="form-label">Date prévue</label>
+              <input type="date" class="form-control" id="vaccineDate">
+            </div>
+            <div class="mb-3">
+              <label for="poultryNumber" class="form-label">Nombre de volailles</label>
+              <input type="number" class="form-control" id="poultryNumber" value="0">
+            </div>
+            <div class="mb-3">
+              <label for="notes" class="form-label">Notes (optionnel)</label>
+              <textarea class="form-control" id="notes" rows="3"></textarea>
+            </div>
+            <button type="button" class="btn btn-danger w-40">Annuler</button>
+            <button type="submit" class="btn btn-primary w-40">Soumettre</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Historique -->
+    <div class="col">
+      <div class="card">
+        <div class="card-header">Historique</div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Nombre</th>
+                  <th>Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>12/05/2024</td>
+                  <td>Influenza</td>
+                  <td>50</td>
+                  <td>Terminé</td>
+                </tr>
+                <tr>
+                  <td>12/03/2024</td>
+                  <td>Newcastle</td>
+                  <td>30</td>
+                  <td>Terminé</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

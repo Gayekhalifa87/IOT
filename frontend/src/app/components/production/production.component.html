@@ -1,0 +1,457 @@
+<div class="app-container">
+  <div class="main-content">
+    <div class="dashboard-management-container">
+      <!-- Loading et Error states inchangés -->
+      <div *ngIf="loading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Chargement des données...</p>
+      </div>
+      <div *ngIf="error" class="error-state">
+        <p>{{ error }}</p>
+        <button class="btn primary" (click)="loadDashboardData()">Réessayer</button>
+      </div>
+
+      <!-- Dashboard Content -->
+      <div *ngIf="!loading && !error" class="dashboard-content">
+        <h1>Gestion Production</h1>
+
+        <!-- Summary Cards inchangées -->
+        <div class="summary-cards">
+          <div class="card">
+            <div class="card-header"><h3>Production Totale</h3></div>
+            <div class="card-content">
+              <p class="number">{{ feedCalculation.chickenCount || productionStats?.totalProduction || 0 }}</p>
+              <p class="subtitle">Mortalité: {{ productionStats?.totalMortality || 0 }}</p>
+              <p>Mortalité totale : {{ productionManagement.deaths | number:'1.0-0' }}</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Coûts Totaux</h3>
+              <!-- Afficher les détails des sacs si les prix sont remplis -->
+              <div *ngIf="areFeedPricesFilled()">
+                <p>Sacs Démarrage : {{ feedCalculation.result.demarrage.bagsNeeded | number:'1.0-0' }}</p>
+                <p>Sacs Croissance : {{ feedCalculation.result.croissance.bagsNeeded | number:'1.0-0' }}</p>
+                <p>Sacs Finition : {{ feedCalculation.result.finition.bagsNeeded | number:'1.0-0' }}</p>
+              </div>
+              <p>Nombre total de sacs : {{ feedCalculation.totalBagsNeeded | number:'1.0-0' }}</p>
+            </div>
+            <div class="card-content">
+              <p class="number">{{ feedCalculation.totalCostFCFA || totalCosts?.total || 0 }} FCFA</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Rentabilité</h3></div>
+            <div class="card-content">
+              <p class="number" [ngClass]="profitabilityCalculation.profit > 0 ? 'positive' : 'negative'">
+                {{ profitabilityCalculation.profit || 0 | number:'1.0-0' }} FCFA
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Résultat</h3>
+              <p>Coût Total : {{ totalFeedCost + totalChickCost + totalOtherCosts | number:'1.0-0' }} FCFA</p>
+            </div>
+            <div class="card-content">
+              <p class="subtitle">{{ (profitabilityCalculation.profit || 0) > 0 ? 'Bénéfice' : 'Perte' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vertical Sections -->
+        <div class="vertical-sections">
+          <!-- Production Section inchangée -->
+          <div class="card production-card">
+            <div class="card-header"><h2>Productions</h2></div>
+            <div class="card-content">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Volailles</th>
+                    <th>Mortalité</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let prod of paginatedProductions">
+                    <td>{{ prod.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+                    <td>{{ prod.chickenCount }}</td>
+                    <td>{{ prod.mortality }}</td>
+                    <td class="actions">
+                      <div class="action-buttons">
+                        <button class="btn danger" (click)="deleteProduction(prod)">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr *ngIf="paginatedProductions.length === 0">
+                    <td colspan="4" class="no-data">Aucune production enregistrée</td>
+                  </tr>
+                </tbody>
+              </table>
+              <nav aria-label="Page navigation" class="mt-3">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item" [class.disabled]="currentPage === 1">
+                    <a class="page-link" (click)="changePage(currentPage - 1)" tabindex="-1">Précédent</a>
+                  </li>
+                  <li class="page-item" *ngFor="let page of pageNumbers">
+                    <a class="page-link" [class.active]="page === currentPage" (click)="changePage(page)">{{ page }}</a>
+                  </li>
+                  <li class="page-item" [class.disabled]="currentPage === totalPages">
+                    <a class="page-link" (click)="changePage(currentPage + 1)">Suivant</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <!-- Feed Calculation Section avec validations -->
+          <div class="card calculation-card">
+            <div class="card-header"><h2>Calcul des Besoins en Alimentation</h2></div>
+            <div class="card-content">
+              <form (ngSubmit)="calculateFeedRequirements()" #feedForm="ngForm">
+                <div class="form-group">
+                  <label for="chickenCount">Nombre de Volailles</label>
+                  <input
+                    type="number"
+                    id="chickenCount"
+                    [(ngModel)]="feedCalculation.chickenCount"
+                    name="chickenCount"
+                    required
+                    min="1"
+                    (ngModelChange)="onChickenCountChange($event)"
+                    (keydown)="preventNegative($event)"
+                    [ngClass]="{'invalid': feedForm.submitted && feedForm.controls['chickenCount'].invalid}"
+                  />
+                  <div *ngIf="feedForm.submitted && feedForm.controls['chickenCount'].invalid" class="error">
+                    <span *ngIf="feedForm.controls['chickenCount'].errors?.['required']">Ce champ est requis.</span>
+                    <span *ngIf="feedForm.controls['chickenCount'].errors?.['min']">Le nombre doit être supérieur à 0.</span>
+                  </div>
+                </div>
+          
+                <div class="form-group">
+                  <label for="numberOfWeeks">Nombre de Semaines</label>
+                  <input
+                    type="number"
+                    id="numberOfWeeks"
+                    [(ngModel)]="feedCalculation.numberOfWeeks"
+                    name="numberOfWeeks"
+                    required
+                    min="4"
+                    max="10"
+                    (keydown)="preventNegative($event)"
+                    [ngClass]="{'invalid': feedForm.submitted && feedForm.controls['numberOfWeeks'].invalid}"
+                  />
+                  <div *ngIf="feedForm.submitted && feedForm.controls['numberOfWeeks'].invalid" class="error">
+                    <span *ngIf="feedForm.controls['numberOfWeeks'].errors?.['required']">Ce champ est requis.</span>
+                    <span *ngIf="feedForm.controls['numberOfWeeks'].errors?.['min'] || feedForm.controls['numberOfWeeks'].errors?.['max']">
+                      Le nombre doit être entre 4 et 10.
+                    </span>
+                  </div>
+                </div>
+          
+                <div class="form-group">
+                  <label for="demarragePrice">Prix Démarrage (FCFA)</label>
+                  <input
+                    type="number"
+                    id="demarragePrice"
+                    [(ngModel)]="feedPrices['demarrage']"
+                    name="demarragePrice"
+                    min="0"
+                    [placeholder]="defaultFeedPrices['demarrage']"
+                    (keydown)="preventNegative($event)"
+                    [ngClass]="{'invalid': feedForm.submitted && feedForm.controls['demarragePrice'].invalid}"
+                  />
+                  <div *ngIf="feedForm.submitted && feedForm.controls['demarragePrice'].invalid" class="error">
+                    <span *ngIf="feedForm.controls['demarragePrice'].errors?.['min']">Le prix ne peut être négatif.</span>
+                  </div>
+                </div>
+          
+                <div class="form-group">
+                  <label for="croissancePrice">Prix Croissance (FCFA)</label>
+                  <input
+                    type="number"
+                    id="croissancePrice"
+                    [(ngModel)]="feedPrices['croissance']"
+                    name="croissancePrice"
+                    min="0"
+                    [placeholder]="defaultFeedPrices['croissance']"
+                    (keydown)="preventNegative($event)"
+                    [ngClass]="{'invalid': feedForm.submitted && feedForm.controls['croissancePrice'].invalid}"
+                  />
+                  <div *ngIf="feedForm.submitted && feedForm.controls['croissancePrice'].invalid" class="error">
+                    <span *ngIf="feedForm.controls['croissancePrice'].errors?.['min']">Le prix ne peut être négatif.</span>
+                  </div>
+                </div>
+          
+                <div class="form-group">
+                  <label for="finitionPrice">Prix Finition (FCFA)</label>
+                  <input
+                    type="number"
+                    id="finitionPrice"
+                    [(ngModel)]="feedPrices['finition']"
+                    name="finitionPrice"
+                    min="0"
+                    [placeholder]="defaultFeedPrices['finition']"
+                    (keydown)="preventNegative($event)"
+                    [ngClass]="{'invalid': feedForm.submitted && feedForm.controls['finitionPrice'].invalid}"
+                  />
+                  <div *ngIf="feedForm.submitted && feedForm.controls['finitionPrice'].invalid" class="error">
+                    <span *ngIf="feedForm.controls['finitionPrice'].errors?.['min']">Le prix ne peut être négatif.</span>
+                  </div>
+                </div>
+          
+                <button
+                  type="submit"
+                  class="btn primary"
+                  [disabled]="feedForm.controls['chickenCount'].invalid || feedForm.controls['numberOfWeeks'].invalid"
+                >
+                  Calculer
+                </button>
+              </form>
+          
+              <!-- Affichage des résultats en bas de la carte -->
+              <div *ngIf="showResults" class="result animate-fade">
+                <h3>Résultats</h3>
+                <p>Consommation totale : {{ feedCalculation.totalFeedConsumptionKg | number:'1.0-2' }} kg</p>
+                <p>Nombre total de sacs : {{ feedCalculation.totalBagsNeeded | number:'1.0-0' }}</p>
+                <p>Coût total : {{ feedCalculation.totalCostFCFA | number:'1.0-0' }} FCFA</p>
+                <p>Volailles survivantes : {{ feedCalculation.survivingChickens | number:'1.0-0' }}</p>
+                <p>Mortalité estimée : {{ feedCalculation.estimatedMortality | number:'1.0-0' }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Profitability Calculation Section avec validations -->
+          <div class="card calculation-card">
+            <div class="card-header"><h2>Calcul de la Rentabilité</h2></div>
+            <div class="card-content">
+              <form (ngSubmit)="calculateProfitability()" #profitForm="ngForm">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="numberOfChickens">Nombre de Volailles</label>
+                    <input
+                      type="number"
+                      id="numberOfChickens"
+                      [(ngModel)]="profitabilityParams.numberOfChickens"
+                      name="numberOfChickens"
+                      required
+                      min="1"
+                      readonly
+                      (keydown)="preventNegative($event)"
+                      [ngClass]="{'invalid': profitForm.submitted && profitForm.controls['numberOfChickens'].invalid}"
+                    />
+                    <div *ngIf="profitForm.submitted && profitForm.controls['numberOfChickens'].invalid" class="error">
+                      <span *ngIf="profitForm.controls['numberOfChickens'].errors?.['required']">Ce champ est requis.</span>
+                      <span *ngIf="profitForm.controls['numberOfChickens'].errors?.['min']">Le nombre doit être supérieur à 0.</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="chickPrice">Prix d'Achat Unitaire (FCFA)</label>
+                    <input
+                      type="number"
+                      id="chickPrice"
+                      [(ngModel)]="profitabilityParams.chickPrice"
+                      name="chickPrice"
+                      required
+                      min="1"
+                      (keydown)="preventNegative($event)"
+                      (ngModelChange)="calculateTotalCosts()"
+                      [ngClass]="{'invalid': profitForm.submitted && profitForm.controls['chickPrice'].invalid}"
+                    />
+                    <div *ngIf="profitForm.submitted && profitForm.controls['chickPrice'].invalid" class="error">
+                      <span *ngIf="profitForm.controls['chickPrice'].errors?.['required']">Ce champ est requis.</span>
+                      <span *ngIf="profitForm.controls['chickPrice'].errors?.['min']">Le prix doit être supérieur à 0.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="feedCost">Coût Alimentation (FCFA)</label>
+                    <input
+                      type="number"
+                      id="feedCost"
+                      [(ngModel)]="profitabilityParams.feedCost"
+                      name="feedCost"
+                      required
+                      min="0"
+                      readonly
+                      (keydown)="preventNegative($event)"
+                      (ngModelChange)="calculateTotalCosts()"
+                      [ngClass]="{'invalid': profitForm.submitted && profitForm.controls['feedCost'].invalid}"
+                    />
+                    <div *ngIf="profitForm.submitted && profitForm.controls['feedCost'].invalid" class="error">
+                      <span *ngIf="profitForm.controls['feedCost'].errors?.['required']">Ce champ est requis.</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="otherCosts">Autres Frais (FCFA)</label>
+                    <input
+                      type="number"
+                      id="otherCosts"
+                      [(ngModel)]="profitabilityParams.otherCosts"
+                      name="otherCosts"
+                      required
+                      min="0"
+                      (keydown)="preventNegative($event)"
+                      (ngModelChange)="calculateTotalCosts()"
+                      [ngClass]="{'invalid': profitForm.submitted && profitForm.controls['otherCosts'].invalid}"
+                    />
+                    <div *ngIf="profitForm.submitted && profitForm.controls['otherCosts'].invalid" class="error">
+                      <span *ngIf="profitForm.controls['otherCosts'].errors?.['required']">Ce champ est requis.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Résumé des Coûts inchangé -->
+                <div class="cost-summary" *ngIf="profitabilityParams.chickPrice > 0 && profitabilityParams.feedCost > 0 && profitabilityParams.otherCosts > 0">
+                  <h3>Résumé des Coûts</h3>
+                  <p>Coût Total d'Alimentation : {{ totalFeedCost | number:'1.0-0' }} FCFA</p>
+                  <p>Coût Total des Poussins : {{ totalChickCost | number:'1.0-0' }} FCFA</p>
+                  <p>Frais Divers : {{ totalOtherCosts | number:'1.0-0' }} FCFA</p>
+                  <p>Coût Total : {{ totalFeedCost + totalChickCost + totalOtherCosts | number:'1.0-0' }} FCFA</p>
+                </div>
+
+                <!-- Ventes avec validations -->
+                <div class="form-group">
+                  <label>Ventes</label>
+                  <div class="sales-table">
+                    <div class="sales-row" *ngFor="let sale of profitabilityParams.sales; let i = index">
+                      <div class="form-group">
+                        <label>Nombre de Volailles</label>
+                        <input
+                          type="number"
+                          [(ngModel)]="sale.quantity"
+                          [name]="'saleQuantity' + i"
+                          required
+                          min="1"
+                          [max]="profitabilityParams.numberOfChickens"
+                          (keydown)="preventNegative($event)"
+                          [ngClass]="{'invalid': profitForm.submitted && profitForm.controls['saleQuantity' + i].invalid}"
+                        />
+                        <div *ngIf="profitForm.submitted && profitForm.controls['saleQuantity' + i].invalid" class="error">
+                          <span *ngIf="profitForm.controls['saleQuantity' + i].errors?.['required']">Ce champ est requis.</span>
+                          <span *ngIf="profitForm.controls['saleQuantity' + i].errors?.['min']">Doit être supérieur à 0.</span>
+                          <span *ngIf="profitForm.controls['saleQuantity' + i].errors?.['max']">Ne peut dépasser {{ profitabilityParams.numberOfChickens }}.</span>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Prix de Vente Unitaire (FCFA)</label>
+                        <input
+                          type="number"
+                          [(ngModel)]="sale.unitPrice"
+                          [name]="'saleUnitPrice' + i"
+                          required
+                          min="1"
+                          (keydown)="preventNegative($event)"
+                          [ngClass]="{'invalid': profitForm.submitted && profitForm.controls['saleUnitPrice' + i].invalid}"
+                        />
+                        <div *ngIf="profitForm.submitted && profitForm.controls['saleUnitPrice' + i].invalid" class="error">
+                          <span *ngIf="profitForm.controls['saleUnitPrice' + i].errors?.['required']">Ce champ est requis.</span>
+                          <span *ngIf="profitForm.controls['saleUnitPrice' + i].errors?.['min']">Doit être supérieur à 0.</span>
+                        </div>
+                      </div>
+                      <button class="btn danger" (click)="removeSale(i)" *ngIf="profitabilityParams.sales.length > 1">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                    <button class="btn secondary" (click)="addSale()">
+                      <i class="fas fa-plus"></i> Ajouter une vente
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn primary"
+                  [disabled]="profitForm.invalid"
+                >
+                  Calculer
+                </button>
+              </form>
+
+              <!-- Résultats inchangés -->
+              <div *ngIf="profitabilityResults" class="result animate-fade">
+                <!-- Contenu existant... -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Gestion de la Production avec validations -->
+          <div class="card calculation-card">
+            <div class="card-header"><h2>Gestion de la Production</h2></div>
+            <div class="card-content">
+              <form (ngSubmit)="isAdding ? addProduction() : updateProduction()" #productionForm="ngForm">
+                <div class="form-group">
+                  <label for="totalProduction">Production Totale</label>
+                  <input
+                    type="number"
+                    id="totalProduction"
+                    [(ngModel)]="productionManagement.totalProduction"
+                    name="totalProduction"
+                    required
+                    min="1"
+                    (keydown)="preventNegative($event)"
+                    [ngClass]="{'invalid': productionForm.submitted && productionForm.controls['totalProduction'].invalid}"
+                  />
+                  <div *ngIf="productionForm.submitted && productionForm.controls['totalProduction'].invalid" class="error">
+                    <span *ngIf="productionForm.controls['totalProduction'].errors?.['required']">Ce champ est requis.</span>
+                    <span *ngIf="productionForm.controls['totalProduction'].errors?.['min']">Doit être supérieur à 0.</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="deaths">Nombre de Décès</label>
+                  <input
+                    type="number"
+                    id="deaths"
+                    [(ngModel)]="productionManagement.deaths"
+                    name="deaths"
+                    required
+                    min="0"
+                    [max]="productionManagement.totalProduction"
+                    (keydown)="preventNegative($event)"
+                    [ngClass]="{'invalid': productionForm.submitted && productionForm.controls['deaths'].invalid}"
+                  />
+                  <div *ngIf="productionForm.submitted && productionForm.controls['deaths'].invalid" class="error">
+                    <span *ngIf="productionForm.controls['deaths'].errors?.['required']">Ce champ est requis.</span>
+                    <span *ngIf="productionForm.controls['deaths'].errors?.['min']">Ne peut être négatif.</span>
+                    <span *ngIf="productionForm.controls['deaths'].errors?.['max']">Ne peut dépasser la production totale.</span>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn primary"
+                  [disabled]="productionForm.invalid"
+                >
+                  {{ isAdding ? 'Ajouter' : 'Modifier' }}
+                </button>
+              </form>
+
+              <div *ngIf="productionManagement.updatedProduction !== undefined" class="result">
+                <h3>Résultat</h3>
+                <p>Production actuelle : {{ productionManagement.updatedProduction | number:'1.0-0' }}</p>
+                <p>Mortalité totale : {{ productionManagement.deaths | number:'1.0-0' }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Notification Bar inchangée -->
+<div *ngIf="showNotificationBar" 
+     class="notification-bar" 
+     [ngClass]="notificationType"
+     [@fadeInOut]>
+  {{ notificationMessage }}
+</div>

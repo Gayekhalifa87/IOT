@@ -1,0 +1,245 @@
+<div class="app-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Contenu de la barre latérale ici si nécessaire -->
+  </div>
+
+  <!-- Contenu principal -->
+  <div class="main-content">
+    <div class="dashboard-container">
+      <!-- Statistiques quotidiennes (placées en haut) -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <i class="fas fa-chart-bar"></i>
+            Statistiques quotidiennes
+          </h2>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-box">
+            <h3>Aliments consommés</h3>
+            <div class="value">{{ dailyFoodConsumption | number:'1.1-1' }} kg</div>
+          </div>
+          <div class="stat-box">
+            <h3>Eau consommée</h3>
+            <div class="value">{{ dailyWaterConsumption | number:'1.1-1' }} L</div>
+          </div>
+          <div class="stat-box">
+            <h3>Distributions passées</h3>
+            <div class="value">{{ dailyDistributions }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alert Banner -->
+      <!-- <div class="alert" *ngIf="stockAlerts && stockAlerts.length > 0">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>Attention : Niveau d'aliments bas ! Stock restant pour {{ calculateAutonomy(stockAlerts[0].currentStock) }} jours.</span>
+      </div> -->
+
+      <!-- Message d'information -->
+      <div class="info-message" *ngIf="!canActivateSystems()">
+        <i class="fas fa-info-circle"></i>
+        Veuillez créer au moins un programme d'alimentation pour activer les systèmes.
+      </div>
+
+      <!-- Grille du tableau de bord -->
+      <div class="dashboard-grid">
+        <!-- Carte du système d'alimentation -->
+        <div class="card card-lg">
+          <div class="card-header">
+            <h2 class="card-title">
+              <i class="fas fa-drumstick-bite"></i>
+              Système d'alimentation
+            </h2>
+          </div>
+
+          <!-- État du système -->
+          <div class="status-details">
+            <div class="status-item">
+              <div class="status-label">État du système</div>
+              <div class="status-value" [ngClass]="{'active': isFeedingSystemActive, 'inactive': !isFeedingSystemActive}">
+                <button class="toggle-btn" (click)="toggleFeedingSystem()" [disabled]="!canActivateSystems()">
+                  {{ isFeedingSystemActive ? 'Arrêter' : 'Démarrer' }}
+                  <i class="fas" [ngClass]="{'fa-stop-circle': isFeedingSystemActive, 'fa-play-circle': !isFeedingSystemActive}"></i>
+                </button>
+              </div>
+            </div>
+            <div class="status-item">
+              <div class="status-label">Dernière distribution</div>
+              <div class="status-value">
+                <i class="fas fa-history"></i>
+                {{ lastFeedingTime || '--:--' }}
+              </div>
+            </div>
+            <div class="status-item">
+              <div class="status-label">Prochaine distribution</div>
+              <div class="status-value">
+                <i class="fas fa-clock"></i>
+                {{ nextFeedingTime || '--:--' }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Boutons de commande manuelle pour l'alimentation -->
+          <div class="manual-controls">
+            <button class="btn btn-success" (click)="startFeedingManually()" [disabled]="isFeedingSystemActive">
+              Démarrer manuellement
+            </button>
+            <button class="btn btn-danger" (click)="stopFeedingManually()" [disabled]="!isFeedingSystemActive">
+              Arrêter manuellement
+            </button>
+          </div>
+
+          <!-- Niveau du réservoir d'aliments -->
+          <div class="progress-container">
+            <h3>Niveau du réservoir d'aliments</h3>
+            <div class="progress-bar">
+              <div class="progress"
+                   [style.width.%]="foodTankLevel"
+                   [ngClass]="{'low': foodTankLevel < 20, 'medium': foodTankLevel >= 20 && foodTankLevel < 50, 'high': foodTankLevel >= 50}">
+                <div class="progress-text">{{ foodTankLevel | number:'1.0-0' }}%</div>
+              </div>
+            </div>
+            <div class="gauge-details" *ngIf="hasFoodPrograms">
+              <p>Type: {{ foodType }}</p>
+              <p>Quantité: {{ foodTotal | number:'1.0-0' }} kg</p>
+            </div>
+          </div>
+
+          <!-- Programmes d'alimentation (seulement nourriture) -->
+          <div class="programs-container">
+            <h3>Programmes d'alimentation</h3>
+            <div *ngIf="hasFoodPrograms; else noPrograms">
+              <div class="program-item" *ngFor="let program of feedingPrograms; let i = index; trackBy: trackByFn">
+                <ng-container *ngIf="program.feedType !== 'Eau'">
+                  <div class="schedule-input">
+                    <div class="input-group">
+                      <label [for]="'type-' + i">Type</label>
+                      <input [id]="'type-' + i" type="text" [(ngModel)]="program.feedType" [name]="'type-' + i" disabled>
+                    </div>
+                    <div class="input-group">
+                      <label [for]="'quantity-' + i">Quantité (kg)</label>
+                      <input [id]="'quantity-' + i" type="number" [(ngModel)]="program.quantity" [name]="'quantity-' + i" min="0" step="0.5" (change)="updateProgram(program)">
+                    </div>
+                    <div class="input-group">
+                      <label [for]="'start-' + i">Heure de début</label>
+                      <input [id]="'start-' + i" type="time" [(ngModel)]="program.programStartTime" [name]="'start-' + i" (change)="updateProgram(program)">
+                    </div>
+                    <div class="input-group">
+                      <label [for]="'end-' + i">Heure de fin</label>
+                      <input [id]="'end-' + i" type="time" [(ngModel)]="program.programEndTime" [name]="'end-' + i" (change)="updateProgram(program)">
+                    </div>
+                    <button class="delete-btn" (click)="deleteProgram(i)" title="Archiver">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+            <ng-template #noPrograms>
+              <p class="no-data">Aucun programme d'alimentation enregistré.</p>
+            </ng-template>
+          </div>
+        </div>
+
+        <!-- Carte du système d'eau -->
+        <div class="card card-lg">
+          <div class="card-header">
+            <h2 class="card-title">
+              <i class="fas fa-tint"></i>
+              Système d'eau
+            </h2>
+          </div>
+
+          <!-- État du système -->
+          <div class="status-details">
+            <div class="status-item">
+              <div class="status-label">État du système</div>
+              <div class="status-value" [ngClass]="{'active': isWaterSystemActive, 'inactive': !isWaterSystemActive}">
+                <button class="toggle-btn" (click)="toggleWaterSystem()" [disabled]="!canActivateSystems()">
+                  {{ isWaterSystemActive ? 'Arrêter' : 'Démarrer' }}
+                  <i class="fas" [ngClass]="{'fa-stop-circle': isWaterSystemActive, 'fa-play-circle': !isWaterSystemActive}"></i>
+                </button>
+              </div>
+            </div>
+            <div class="status-item">
+              <div class="status-label">Dernier arrosage</div>
+              <div class="status-value">
+                <i class="fas fa-history"></i>
+                {{ lastWateringTime || '--:--' }}
+              </div>
+            </div>
+            <div class="status-item">
+              <div class="status-label">Prochain arrosage</div>
+              <div class="status-value">
+                <i class="fas fa-clock"></i>
+                {{ nextWateringTime || '--:--' }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Boutons de commande manuelle pour l'eau -->
+          <div class="manual-controls">
+            <button class="btn btn-success" (click)="startWaterManually()" [disabled]="isWaterSystemActive">
+              Démarrer manuellement
+            </button>
+            <button class="btn btn-danger" (click)="stopWaterManually()" [disabled]="!isWaterSystemActive">
+              Arrêter manuellement
+            </button>
+          </div>
+
+          <!-- Niveau du réservoir d'eau -->
+          <div class="progress-container">
+            <h3>Niveau du réservoir d'eau</h3>
+            <div class="progress-bar">
+              <div class="progress"
+                   [style.width.%]="waterTankLevel"
+                   [ngClass]="{'low': waterTankLevel < 20, 'medium': waterTankLevel >= 20 && waterTankLevel < 50, 'high': waterTankLevel >= 50}">
+                <div class="progress-text">{{ waterTankLevel | number:'1.0-0' }}%</div>
+              </div>
+            </div>
+            <div class="gauge-details" *ngIf="waterPrograms.length > 0">
+              <p>Type: Eau</p>
+              <p>Quantité: {{ waterTotal | number:'1.0-0' }} L</p>
+            </div>
+          </div>
+
+          <!-- Programmes d'arrosage -->
+          <div class="programs-container">
+            <h3>Programmes d'arrosage</h3>
+            <div *ngIf="waterPrograms.length > 0; else noWaterPrograms">
+              <div class="program-item" *ngFor="let program of waterPrograms; let i = index; trackBy: trackByFn">
+                <div class="schedule-input">
+                  <div class="input-group">
+                    <label [for]="'type-' + i">Type</label>
+                    <input [id]="'type-' + i" type="text" [(ngModel)]="program.feedType" [name]="'type-' + i" disabled>
+                  </div>
+                  <div class="input-group">
+                    <label [for]="'quantity-' + i">Quantité (L)</label>
+                    <input [id]="'quantity-' + i" type="number" [(ngModel)]="program.quantity" [name]="'quantity-' + i" min="0" step="0.5" (change)="updateWaterProgram(program)">
+                  </div>
+                  <div class="input-group">
+                    <label [for]="'water-start-' + i">Heure de début</label>
+                    <input [id]="'water-start-' + i" type="time" [(ngModel)]="program.programStartTime" [name]="'water-start-' + i" (change)="updateWaterProgram(program)">
+                  </div>
+                  <div class="input-group">
+                    <label [for]="'water-end-' + i">Heure de fin</label>
+                    <input [id]="'water-end-' + i" type="time" [(ngModel)]="program.programEndTime" [name]="'water-end-' + i" (change)="updateWaterProgram(program)">
+                  </div>
+                  <button class="delete-btn" (click)="deleteWaterProgram(i)" title="Archiver">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <ng-template #noWaterPrograms>
+              <p class="no-data">Aucun programme d'arrosage enregistré.</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

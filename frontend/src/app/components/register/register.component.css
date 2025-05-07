@@ -1,0 +1,145 @@
+.register-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.22);
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+.form-container {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+}
+
+.eye-icon:hover {
+  color: #333;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.success {
+  color: #2ecc71;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+.btn-primary {
+  background: #FFF59D;
+}
+
+.btn-primary:hover {
+  background: #FFF176;
+}
+
+.btn-primary:disabled {
+  background: #f3f4f6;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Style pour le bouton Retour */
+.btn-secondary {
+  background: #ecf0f1;
+  color: #2c3e50;
+}
+
+.btn-secondary:hover {
+  background: #dfe4ea;
+}
+
+/* Media Queries pour la réactivité */
+@media (max-width: 768px) {
+  .register-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-control {
+    padding: 0.6rem;
+  }
+
+  .btn {
+    padding: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-container {
+    padding: 0.75rem;
+    margin: 0.5rem;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  .error, .success {
+    font-size: 0.75rem;
+  }
+}

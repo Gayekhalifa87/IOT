@@ -1,0 +1,405 @@
+/* Layout principal */
+/* Layout principal */
+.main-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+app-sidebar {
+  width: 250px;
+  min-width: 250px;
+  background-color: #FFE082; /* Couleur jaune cohérente avec votre design */
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.stock-dashboard-container {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 250px; /* Correspond à la largeur du sidebar */
+  max-width: calc(100% - 250px); /* Prend en compte le sidebar */
+  width: 100%;
+}
+
+/* En-tête du dashboard */
+.dashboard-header {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+}
+
+.dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.dashboard-header h1 {
+  font-size: 1.75rem;
+  color: #2d3748;
+  margin: 0;
+}
+
+/* Conteneur statistiques et alertes */
+.stats-alerts-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Grille des statistiques */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.stat-item {
+  background: white;
+  padding: 1.25rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.card-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+}
+
+.card-content {
+  padding: 1.25rem;
+}
+
+/* Alertes */
+.alerts-list {
+  margin-top: 0.5rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.alert-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 6px;
+  background: #fff3cd;
+  margin-bottom: 0.75rem;
+}
+
+.icon-warning {
+  color: #d97706;
+  margin-right: 0.75rem;
+}
+
+/* Formulaire */
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
+
+
+.form-control:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+.form-hint {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* Boutons */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+}
+
+.btn-cancel {
+  background: #e2e8f0;
+  color: #4a5568;
+}
+
+.btn-cancel:hover {
+  background: #cbd5e1;
+}
+
+.btn-icon {
+  padding: 0.5rem;
+  border-radius: 6px;
+  background-color: #3b82f6; /* Couleur de fond */
+  color: white; /* Couleur du texte */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-icon:hover {
+  background-color: #2563eb; /* Couleur de fond au survol */
+}
+
+/* Tableau */
+.table-container {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background: #f8fafc;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+
+.status-out {
+  background-color: #d32f2f; /* Rouge pour Indisponible */
+}
+
+.status-low {
+  background-color: #ff9800; /* Orange pour Stock bas */
+}
+
+.status-normal {
+  background-color: #4caf50; /* Vert pour Disponible */
+}
+
+.status-normal {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-warning {
+  background: #fff3cd;
+  color: #92400e;
+}
+
+.status-danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn-pagination {
+  padding: 0.5rem 1rem;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 6px;
+  color: #4a5568;
+  cursor: pointer;
+}
+
+.btn-pagination:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Notification bar */
+.custom-notification-bar {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: slideIn 0.3s ease;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Types de notification */
+.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.warning {
+  background: #fff3cd;
+  color: #92400e;
+}
+
+.water-card {
+  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+  
+  .card-content {
+    padding: 1.5rem;
+  }
+
+  .water-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .water-icon {
+    font-size: 2.5rem;
+    color: #0288d1;
+  }
+
+  .water-details {
+    .water-quantity {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #0288d1;
+    }
+
+    .water-label {
+      font-size: 0.9rem;
+      color: #546e7a;
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+.water-card {
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .stock-dashboard-container {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  .stats-alerts-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+

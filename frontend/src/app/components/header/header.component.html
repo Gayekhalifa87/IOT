@@ -1,0 +1,9 @@
+<header class="header">
+  <h1>{{ pageTitle }}</h1>
+  <div class="user-info">
+    <img [src]="userProfilePicture" alt="Profile Picture" class="profile-image" />
+    <span>{{ userName }}</span>
+    <!-- <span class="role">{{ userRole }}</span> -->
+    <span class="date">{{ currentDate | date:'dd/MM/yyyy' }}</span>
+  </div>
+</header>

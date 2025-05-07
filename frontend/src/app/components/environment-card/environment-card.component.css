@@ -1,0 +1,123 @@
+.card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-header {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .card-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .controls .buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .btn-on, .btn-off {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-on {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .btn-off {
+    background-color: #e0e0e0; /* Initial grayed-out color */
+    color: #fff;
+  }
+  
+  .btn-on:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .btn-off:disabled {
+    background-color: #e0e0e0; /* Grayed-out color when disabled */
+    cursor: not-allowed;
+  }
+  
+  .btn-off:not(:disabled) {
+    background-color: #DF222C; /* Active color */
+  }
+  
+  .status {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 0.5rem;
+  }
+  
+  .status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #DF222C;
+  }
+  
+  .status-indicator.on {
+    background-color: #4CAF50;
+  }
+  
+  .rotate {
+    animation: spin 2s linear infinite;
+  }
+  
+  .icon-image {
+    width: 24px; /* Ajustez la taille selon vos besoins */
+    height: auto;
+    margin-left: 0.5rem;
+  }
+  
+  .lightbulb-image {
+    text-align: center; /* Centrer l'image */
+    margin-bottom: 10px; /* Espacement entre l'image et les boutons */
+  }
+  
+  .lightbulb-icon {
+    width: 50px; /* Taille de l'image */
+    height: auto; /* Conserver les proportions */
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .colored-icon {
+    color: #14AE5C;
+  }

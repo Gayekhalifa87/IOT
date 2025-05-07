@@ -1,0 +1,162 @@
+
+#titre{
+    margin: 25px; 
+    text-align: start; /* Centre le texte */
+    border: 1px solid rgb(46, 44, 44); /* Bordure rouge de 10 pixels */
+    border-radius: 25px, 25px, 25px, 25px;
+    padding: 10px; /* Ajoute un peu d'espace à l'intérieur pour aérer */
+    border-radius: 5px; /* Arrondit les coins de la bordure */
+    margin: 25px 25px; /* Ajoute un espace au-dessus et au-dessous */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+   
+}
+
+.periode {
+    
+    margin: 25px; /* Marge en haut et en bas */
+    margin: 25px 25px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 15px;
+    height: 120px; /* Gardez cette hauteur si nécessaire */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Ombre en bas */
+    align-items: center; /* Centre verticalement */
+    display: flex; /* Active Flexbox */
+    flex-wrap: wrap;
+    margin-left: 25px;
+    
+}
+
+h2 {
+    margin: 0 15px 0 0; /* Espace à droite du titre */
+    margin-left: 75px; /* Réinitialise la marge gauche pour centrer */
+}
+
+select {
+    display: flex;
+    padding: 10px; /* Espacement interne pour le select */
+    width: 100%; /* Prend toute la largeur du conteneur */
+    max-width: 220px; /* Largeur maximale pour le select */
+    border-radius: 3px; /* Arrondit les coins du select */
+}
+
+/* HISTORIQUE TEMPERATURE */
+.table {
+    width: 100%; /* Prend toute la largeur disponible */
+    border-collapse: collapse; /* Évite les espacements entre les cellules */
+}
+
+.table th, .table td {
+    border: 1px solid #ddd; /* Bordure autour des cellules */
+    padding: 8px; /* Espacement interne */
+    text-align: left; /* Alignement à gauche */
+}
+
+.table th {
+    background-color: #f2f2f2; /* Couleur de fond pour les en-têtes */
+}
+
+.table-striped tr:nth-child(even) {
+    background-color: #f9f9f9; /* Couleur de fond pour les lignes paires */
+}
+
+.table-striped tr:hover {
+    background-color: #f1f1f1; /* Couleur de fond au survol */
+}
+h4{
+    text-align: center;
+}
+.temperature{
+    width: 50%;
+}
+
+
+
+
+
+/* HISTORIQUE HUMIDITE */
+
+/* HISTORIQUE HUMIDITE */
+.humidite {
+    width: 50%; /* Largeur pour la section humidité */
+    margin: 0 auto; /* Centre la section horizontalement */
+}
+
+.humidite .table {
+    width: 100%; /* Prend toute la largeur disponible */
+    border-collapse: collapse; /* Évite les espacements entre les cellules */
+}
+
+.humidite th, .humidite td {
+    border: 1px solid #ddd; /* Bordure autour des cellules */
+    padding: 8px; /* Espacement interne */
+    text-align: left; /* Alignement à gauche */
+}
+
+.humidite th {
+    background-color: #f2f2f2; /* Couleur de fond pour les en-têtes */
+}
+
+.humidite .table-striped tr:nth-child(even) {
+    background-color: #f9f9f9; /* Couleur de fond pour les lignes paires */
+}
+
+.humidite .table-striped tr:hover {
+    background-color: #f1f1f1; /* Couleur de fond au survol */
+}
+
+h4 {
+    text-align: center; /* Centrer le texte des titres */
+}
+
+
+.historique {
+    display: flex; /* Active Flexbox */
+    flex-wrap: wrap; /* Permet le retour à la ligne */
+    gap: 10px; /* Définit un espacement de 7 pixels entre les sections */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Ombre en bas */
+}
+
+.temperature, .humidite {
+    flex: 1 1 45%; /* Prend 45% de la largeur, ajustez si nécessaire */
+    margin: 0; /* Enlevez les marges supplémentaires */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre pour une meilleure visibilité */
+    border-radius: 5px; /* Arrondit les coins */
+}
+
+
+
+
+/* HISTORIQUE DE L ALIMENTATION  */
+
+.alimentation {
+    width: 100%; /* Prend toute la largeur disponible */
+    padding: 20px; /* Ajoute un peu d'espace autour */
+}
+
+.table-responsive {
+    overflow-x: auto; /* Permet le défilement horizontal sur petits écrans */
+}
+
+.table {
+    width: 100%; /* Prend toute la largeur du conteneur */
+    border-collapse: collapse; /* Évite les espacements entre les cellules */
+}
+
+.table th, .table td {
+    border: 1px solid #ddd; /* Bordure autour des cellules */
+    padding: 8px; /* Espacement interne */
+    text-align: left; /* Alignement à gauche */
+}
+
+.table th {
+    background-color: #f2f2f2; /* Couleur de fond pour les en-têtes */
+}
+
+.table-striped tr:nth-child(even) {
+    background-color: #f9f9f9; /* Couleur de fond pour les lignes paires */
+}
+
+.table-striped tr:hover {
+    background-color: #f1f1f1; /* Couleur de fond au survol */
+}

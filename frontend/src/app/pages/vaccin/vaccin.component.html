@@ -1,0 +1,98 @@
+
+<div class="container-fluid"> <!-- Utilisez container-fluid pour toute la largeur -->
+    <div class="d-flex flex-wrap justify-content-between"> <!-- Conteneur flex pour aligner les éléments -->
+
+        <!-- TABLEAU POUR AFFICHER LES VACCINS -->
+        <div class="table-responsive flex-fill" style="min-width: 300px; margin-right: 20px;"> 
+            <table class="table table-striped my-table-1">
+                <thead>
+                    
+                    <tr>
+                        <th scope="col">Nom du Vaccin</th>
+                        <th scope="col">Date Administrée</th>
+                        <th scope="col">Prochaine Date Due</th>
+                    </tr>
+                    
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vaccin of upcomingVaccines">
+                        <td>{{ vaccin.name }}</td>
+                        <td>{{ vaccin.dateAdministered | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ vaccin.nextDueDate | date:'dd/MM/yyyy' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="vaccin-container flex-fill" style="min-width: 300px;"> 
+            <h3>Calendrier des vaccinations</h3>
+            <i class="fas fa-calendar" (click)="toggleDates()" style="cursor: pointer;"></i> 
+            
+            <div class="days d-flex flex-wrap" *ngIf="showDates">
+                <div *ngFor="let day of days; let i = index" class="day p-2">
+                    {{ i + 1 }}. {{ day }}
+                </div>
+            </div>
+      
+            <div class="dates d-flex flex-wrap" *ngIf="showDates">
+                <div *ngFor="let dateObj of dates" 
+                     class="date" 
+                     [class.selected]="selectedDate?.date === dateObj.date"
+                     (click)="selectDate(dateObj)">
+                    <span class="date-index">{{ dateObj.index }}.</span> {{ dateObj.day }} {{ dateObj.date }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORMULAIRE D'AJOUT DE VACCIN -->
+    
+    <div class="container-fluid"> <!-- Utilisez container-fluid pour toute la largeur -->
+        <div class="d-flex flex-wrap justify-content-between"> <!-- Conteneur flex pour aligner les éléments -->
+    
+            <!-- FORMULAIRE D'AJOUT DE VACCIN (À GAUCHE) -->
+            <!-- FORMULAIRE D'AJOUT DE VACCIN (À GAUCHE) -->
+            <div class="container2 flex-fill" style="max-width: 900px;"> <!-- Utilisation de container2 ici -->
+                <h3>Ajouter un Vaccin</h3>
+                <form [formGroup]="vaccineForm" (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nom du Vaccin</label>
+                        <input type="text" class="form-control" id="name" formControlName="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateAdministered" class="form-label">Date Administrée</label>
+                        <input type="date" class="form-control" id="dateAdministered" formControlName="dateAdministered" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nextDueDate" class="form-label">Prochaine Date Due</label>
+                        <input type="date" class="form-control" id="nextDueDate" formControlName="nextDueDate" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ajouter Vaccin</button>
+                </form>
+            </div>
+    
+            <!-- TABLEAU POUR L'HISTORIQUE (À DROITE) -->
+            <div class="table-responsive flex-fill" style="max-width: 1000px; margin-left: 20px;">
+                <table class="table table-striped my-table-1">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom du Vaccin</th>
+                            <th scope="col">Date Administrée</th>
+                            <th scope="col">Prochaine Date Due</th>
+                            <th scope="col">Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let vaccine of vaccines; let i = index">
+                            <td>{{ vaccine.name }}</td>
+                            <td>{{ vaccine.dateAdministered | date:'dd/MM/yyyy' }}</td>
+                            <td>{{ vaccine.nextDueDate | date:'dd/MM/yyyy' }}</td>
+                            <td>
+                                <button class="btn btn-success btn-sm">Etat</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

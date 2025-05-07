@@ -1,0 +1,600 @@
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9fafb;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sidebar */
+app-sidebar {
+  width: 250px;
+  background-color: #1e293b;
+  color: #fff;
+  padding: 20px;
+  position: fixed; /* Fixe la sidebar */
+  height: 100vh;
+  left: 0;
+  top: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Ombre portée pour la sidebar */
+}
+
+/* Contenu principal */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px; /* Correspond à la largeur de la sidebar */
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+/* Conteneur de gestion des vaccins */
+.vaccine-management-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto; /* Centre le contenu horizontalement */
+  padding: 20px;
+}
+
+/* Adaptation responsive */
+@media (max-width: 768px) {
+  app-sidebar {
+    position: relative;
+    height: auto;
+    width: 100%;
+    box-shadow: none; /* Supprime l'ombre portée en mode responsive */
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .vaccine-management-container {
+    padding: 10px;
+  }
+}
+
+/* Le reste de votre CSS reste inchangé */
+.vaccine-management-container h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 20px;
+  text-align: center; /* Centre le titre */
+}
+
+/* Cartes */
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre portée ajustée */
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: #f3f4f6; /* Couleur d'en-tête gris clair */
+  padding: 16px;
+  color: #1e293b;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre portée pour l'en-tête */
+}
+
+.card-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.schedule-generator-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.schedule-generator-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Formulaires */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.form-field {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+  margin-right: 15px;
+}
+
+.form-field:last-child {
+  margin-right: 0;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background-color: #fff;
+  color: #1f2937;
+  appearance: none;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: #14AE5C;
+  box-shadow: 0 0 0 3px rgba(20, 174, 92, 0.1);
+  outline: none;
+}
+
+.form-field input[type="date"] {
+  padding-right: 10px;
+  font-family: inherit;
+}
+
+/* Styles spécifiques pour input number */
+.form-field input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.form-field input[type="number"]::-webkit-outer-spin-button,
+.form-field input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+.form-field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+  padding-right: 40px;
+}
+
+/* Messages d'erreur */
+.error {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  color: #ef4444;
+  font-size: 0.8rem;
+  transform: translateY(0);
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.error.visible {
+  opacity: 1;
+  transform: translateY(4px);
+}
+
+/* États désactivés */
+.form-field input:disabled,
+.form-field select:disabled {
+  background-color: #f3f4f6;
+  cursor: not-allowed;
+  border-color: #d1d5db;
+}
+
+/* États invalides */
+.form-field input.ng-invalid.ng-touched,
+.form-field select.ng-invalid.ng-touched {
+  border-color: #ef4444;
+}
+
+/* Bouton de soumission */
+form .btn.primary {
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 12px 24px;
+  font-weight: 500;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .form-field {
+    margin-bottom: 8px;
+  }
+
+  form .btn.primary {
+    width: 100%;
+    align-self: stretch;
+  }
+}
+
+/* Messages d'erreur */
+/* .error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.error.visible {
+  opacity: 1;
+} */
+
+/* Boutons */
+.button-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre portée pour les boutons */
+}
+
+.btn.primary {
+  background-color: #14AE5C;
+  color: white;
+}
+
+.btn.primary:hover {
+  background-color: #10964e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Ombre portée au survol */
+}
+
+.btn.accent {
+  background-color: #10b981;
+  color: white;
+}
+
+.btn.accent:hover {
+  background-color: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Ombre portée au survol */
+}
+
+.btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none; /* Supprime l'ombre portée pour les boutons désactivés */
+}
+
+.btn i {
+  font-size: 1.125rem;
+}
+
+/* Boutons d'action dans les vaccins à venir */
+.btn.success {
+  background-color: #22c55e; /* Vert pour succès */
+  color: white;
+}
+
+.btn.success:hover {
+  background-color: #16a34a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Ombre portée au survol */
+}
+
+.btn.danger {
+  background-color: #ef4444; /* Rouge pour danger */
+  color: white;
+}
+
+.btn.danger:hover {
+  background-color: #dc2626;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Ombre portée au survol */
+}
+
+/* Tableaux */
+.vaccine-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre portée pour les tableaux */
+}
+
+.vaccine-table th,
+.vaccine-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb; /* Bordure légère */
+  vertical-align: middle;
+}
+
+.vaccine-table th {
+  background-color: #f3f4f6; /* Fond d'en-tête gris clair */
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* Colonne des actions */
+.vaccine-table td:last-child {
+  width: 280px; /* Largeur fixe pour la colonne des actions */
+  text-align: right; /* Aligne les boutons à droite */
+  white-space: nowrap; /* Empêche le retour à la ligne des boutons */
+}
+
+.vaccine-table .action-buttons {
+  display: flex;
+  gap: 8px; /* Espace entre les boutons */
+  justify-content: flex-end; /* Aligne les boutons à droite */
+}
+
+.vaccine-table .btn {
+  padding: 8px 16px; /* Padding réduit pour les boutons */
+  font-size: 0.875rem; /* Taille de police légèrement réduite */
+  white-space: nowrap; /* Empêche le texte de se wrapper */
+  flex-shrink: 0; /* Empêche les boutons de rétrécir */
+}
+
+.vaccine-table .btn.success {
+  background-color: #22c55e;
+  color: white;
+}
+
+.vaccine-table .btn.danger {
+  background-color: #ef4444;
+  color: white;
+}
+
+/* Hover states */
+.vaccine-table .btn.success:hover {
+  background-color: #16a34a;
+}
+
+.vaccine-table .btn.danger:hover {
+  background-color: #dc2626;
+}
+
+/* Responsive design pour les actions */
+@media (max-width: 768px) {
+  .vaccine-table td:last-child {
+    width: auto;
+  }
+  
+  .vaccine-table .action-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .vaccine-table .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.vaccine-table tbody tr:hover {
+  background-color: #f9fafb; /* Fond au survol */
+}
+
+/* États vides */
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #6b7280; /* Texte gris */
+}
+
+.empty-state i {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: #9ca3af; /* Icône grise */
+}
+
+.empty-state p {
+  margin: 8px 0;
+}
+
+/* Barre de progression */
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: #e5e7eb; /* Fond gris */
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Ombre portée interne */
+}
+
+.progress-bar::after {
+  content: "";
+  display: block;
+  width: 50%; /* Largeur de la progression */
+  height: 100%;
+  background-color: #14AE5C; /* Couleur de progression verte */
+  animation: progress 2s infinite;
+}
+
+@keyframes progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Carte de notification */
+.notification-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.notification-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* En-tête de la carte */
+.notification-card .card-header {
+  background: rgb(254, 253, 253);
+  padding: 1.5rem;
+  border-bottom: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre portée pour l'en-tête */
+}
+
+.notification-card .card-header h2 {
+  color: #000;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* Contenu de la carte */
+.notification-card .card-content {
+  padding: 2rem;
+}
+
+/* Style des toggles de notification */
+.notification-toggle {
+  margin-bottom: 1.5rem;
+}
+
+.notification-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* Style personnalisé des checkbox */
+.notification-toggle input[type="checkbox"] {
+  appearance: none;
+  width: 48px;
+  height: 24px;
+  background-color: #e5e7eb;
+  border-radius: 24px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.notification-toggle input[type="checkbox"]:checked {
+  background-color: #14AE5C; /* Couleur verte pour les toggles */
+}
+
+.notification-toggle input[type="checkbox"]::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notification-toggle input[type="checkbox"]:checked::before {
+  transform: translateX(24px);
+}
+
+/* Style du champ de nombre de jours */
+.form-field input[type="number"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f9fafb;
+}
+
+.form-field input[type="number"]:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  outline: none;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .form-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .button-row {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .notification-bar {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    color: white;
+    z-index: 1000;
+  }
+
+  .notification-success {
+    background-color: #4CAF50; /* Vert pour les succès */
+    color: white;
+  }
+
+  .notification-error {
+    background-color: #f44336; /* Rouge pour les erreurs */
+    color: white;
+  }
+
+  .notification-info {
+    background-color: #2196F3; /* Bleu pour les informations */
+    color: white;
+  }
+
+  .notification-bar button {
+    margin-left: 20px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+}

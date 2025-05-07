@@ -1,0 +1,44 @@
+<!-- src/app/components/stock-management/stock-detail-dialog/stock-detail-dialog.component.html -->
+<h2 mat-dialog-title>Détails du stock: {{stock.type}}</h2>
+
+<mat-dialog-content>
+  <div class="stock-detail-container">
+    <div class="stock-header">
+      <div class="stock-status" [ngClass]="getStatusClass(stock)">
+        {{getStatusText(stock)}}
+      </div>
+      <div class="stock-quantity">
+        <span class="quantity-value">{{stock.quantity | number:'1.0-2'}}</span>
+        <span class="quantity-unit">{{stock.unit}}</span>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="stock-info-grid">
+      <div class="info-group">
+        <div class="info-label">Catégorie</div>
+        <div class="info-value">{{stock.category}}</div>
+      </div>
+
+      <div class="info-group">
+        <div class="info-label">Seuil d'alerte</div>
+        <div class="info-value">{{stock.minQuantity}} {{stock.unit}}</div>
+      </div>
+
+      <div class="info-group" *ngIf="stock.userId">
+        <div class="info-label">ID Utilisateur</div>
+        <div class="info-value">{{stock.userId}}</div>
+      </div>
+
+      <div class="info-group" *ngIf="stock.lastUpdated">
+        <div class="info-label">Dernière mise à jour</div>
+        <div class="info-value">{{stock.lastUpdated | date:'dd/MM/yyyy à HH:mm'}}</div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Fermer</button>
+</mat-dialog-actions>

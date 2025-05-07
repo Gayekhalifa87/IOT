@@ -1,0 +1,64 @@
+<!-- Bouton hamburger -->
+<div class="hamburger" (click)="toggleSidebar()">
+  <fa-icon [icon]="faBars"></fa-icon>
+</div>
+
+<!-- Sidebar -->
+<aside class="sidebar" [class.sidebar-open]="isSidebarOpen">
+  <div class="logo-container">
+    <img src="assets/images/logo.png" alt="Cocorico Poulailler" class="logo" (click)="navigateToDashboard()">
+  </div>
+
+  <nav class="menu">
+    <ul>
+      <li class="menu-item" [class.active]="isActive('/dashboard')" (click)="navigateToDashboard()">
+        <div class="menu-content">
+          <fa-icon [icon]="faTachometerAlt"></fa-icon>
+          Tableau de bord
+        </div>
+      </li>
+      <li class="menu-item" [class.active]="isActive('/alimentation')" (click)="navigateToUserManagement()">
+        <div class="menu-content">
+          <fa-icon [icon]="faBowlFood"></fa-icon>
+          Gestion Alimentations
+        </div>
+      </li>      
+      <li class="menu-item" [class.active]="isActive('/vaccinations')" (click)="navigateToVaccinationManagement()">
+        <div class="menu-content">
+          <fa-icon [icon]="faSyringe"></fa-icon>
+          Gestion vaccination
+        </div>
+      </li>
+      <li class="menu-item" [class.active]="isActive('/productions')" (click)="navigateToPoultryManagement()">
+        <div class="menu-content">
+          <fa-icon [icon]="faKiwiBird"></fa-icon>
+          Gestion de volailles
+        </div>
+      </li>
+      <li class="menu-item" [class.active]="isActive('/historiques')" (click)="navigateToHistoriques()">
+        <div class="menu-content">
+          <fa-icon [icon]="faHistory"></fa-icon>
+          Historiques
+        </div>
+      </li>
+      <li class="menu-item" [class.active]="isActive('/parametres')" (click)="navigateToSettings()">
+        <div class="menu-content">
+          <fa-icon [icon]="faCog"></fa-icon>
+          Paramètres
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="logout">
+    <button (click)="logout()">
+      <fa-icon [icon]="faSignOutAlt"></fa-icon>
+      Déconnexion
+    </button>
+  </div>
+</aside>
+
+<!-- Contenu principal -->
+<main class="main-content" [class.sidebar-open]="isSidebarOpen">
+ 
+</main>

@@ -1,0 +1,80 @@
+.vaccin-container {
+    padding: 20px; /* Espacement intérieur */
+    background-color: #f9f9f9; /* Couleur de fond */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    margin-top: 64px; /* Espacement au-dessus */
+    width: 100%; /* Largeur dynamique */
+    max-width: 900px;
+}
+
+.days {
+    margin-bottom: 20px; /* Espacement entre les jours et les dates */
+    display: flex; /* Assure l'affichage en ligne */
+    flex-wrap: wrap; /* Permet le passage à la ligne si nécessaire */
+}
+
+.day {
+    flex: 1 1 auto; /* Permet aux jours de s'ajuster à l'espace disponible */
+    text-align: center; /* Centre le texte dans chaque jour */
+    border: 1px solid transparent; /* Bordure transparente par défaut */
+    transition: border 0.3s; /* Transition pour l'effet de survol */
+}
+
+.day:hover {
+    border: 1px solid #007bff; /* Bordure lors du survol */
+}
+
+.dates {
+    margin-top: 10px; /* Espacement au-dessus des dates */
+    display: flex; /* Assure l'affichage en ligne */
+    flex-wrap: wrap; /* Permet le passage à la ligne si nécessaire */
+}
+
+.date {
+    flex: 1 1 auto; /* Permet aux dates de s'ajuster à l'espace disponible */
+    cursor: pointer; /* Pointeur pour indiquer que c'est cliquable */
+    padding: 10px; /* Espacement autour de chaque date */
+    border: 1px solid transparent; /* Bordure transparente par défaut */
+    transition: border 0.3s; /* Transition pour l'effet de survol */
+    text-align: center; /* Centre le texte dans chaque date */
+}
+
+.date:hover {
+    border: 1px solid #007bff; /* Bordure lors du survol */
+}
+
+.selected {
+    background-color: #e7f3ff; /* Couleur de fond pour la date sélectionnée */
+    border: 1px solid #007bff; /* Bordure pour la date sélectionnée */
+}
+
+.date-index {
+    color: red; /* Couleur rouge pour le numéro de date */
+}
+
+.my-table-1 {
+    border: 2px solid #007bff; /* Bordure spécifique pour le tableau */
+    width: 100%; /* Ajustez la largeur pour être responsive */
+    margin-top: 64px; /* Descend le tableau de 64px */
+}
+
+.my-table-1 th {
+    background-color: #007bff; /* Couleur de fond des en-têtes pour le tableau */
+}
+
+.container {
+    width: 100%; /* Prend toute la largeur de la page */
+    padding: 0 20px; /* Ajoute un peu de remplissage horizontal */
+    box-sizing: border-box; /* Inclut le remplissage dans les calculs de largeur */
+}
+
+.container2 {
+    padding: 20px; /* Espacement intérieur */
+    background-color: #f9f9f9; /* Couleur de fond */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    margin-top: 64px; /* Espacement au-dessus */
+    width: 100%; /* Largeur dynamique */
+    max-width: 50%; /* Largeur maximale */
+}

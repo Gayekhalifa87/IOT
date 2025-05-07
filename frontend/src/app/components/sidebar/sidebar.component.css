@@ -1,0 +1,198 @@
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 230px;
+  height: 100vh;
+  background-color: #FFDE59;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.sidebar.sidebar-open {
+  transform: translateX(0); /* Afficher lorsque ouvert */
+}
+
+.logo-container {
+  padding: 1rem 0;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  max-width: 160px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.menu {
+  flex: 1;
+  /* Supprime overflow: hidden pour éviter de couper le hover */
+  /* overflow: hidden; */
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.menu-item {
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  /* Assure que l'élément prend toute la largeur disponible */
+  box-sizing: border-box;
+}
+
+.menu-content {
+  padding: 0.875rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: rgba(0, 0, 0, 0.8);
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  width: 100%; /* S'assure que le contenu utilise toute la largeur */
+  box-sizing: border-box; /* Inclut padding dans la largeur */
+}
+
+.menu-content fa-icon {
+  font-size: 1.25rem;
+  opacity: 0.85;
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover .menu-content {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #B4940F;
+  transform: translateX(8px); /* Déplacement conservé */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  /* Ajuste la largeur si nécessaire pour éviter le débordement */
+  width: calc(100% + 8px); /* Compense le translateX */
+}
+
+.menu-item:hover fa-icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.menu-item.active .menu-content {
+  background-color: #ffffff;
+  color: #B4940F;
+  transform: translateX(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.logout {
+  margin-top: auto;
+  padding: 2rem 0;
+}
+
+.logout button {
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  background: transparent;
+  border: none;
+  color: #E53935;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logout button fa-icon {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+}
+
+.logout button:hover {
+  background-color: rgba(229, 57, 53, 0.1);
+  transform: translateX(8px);
+}
+
+.logout button:hover fa-icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Styles pour le bouton hamburger */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 101;
+  background-color: #FFDE59;
+  padding: 0.5rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Médias queries pour le responsive */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .sidebar {
+    width: 240px;
+    transform: translateX(-100%);
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+}
+
+/* Animation d'entrée pour les éléments du menu */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.menu-item {
+  animation: slideIn 0.3s ease-out forwards;
+  animation-delay: calc(var(--index) * 0.1s);
+}
+
+/* Media queries */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 260px;
+  }
+  
+  .menu-content {
+    padding: 0.75rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+  }
+}

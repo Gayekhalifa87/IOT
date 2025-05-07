@@ -1,0 +1,118 @@
+<div class="control-item">
+  <div class="control-header">
+    <h3 class="title">
+      {{title}}
+      <span *ngIf="isLoading" class="loading-indicator">(en cours...)</span>
+    </h3>
+    <div class="action-icons">
+      <!-- Icônes spécifiques pour la lumière -->
+      <ng-container *ngIf="type === 'light'">
+        <!-- Icône "Plus" pour ajouter une programmation (affichée uniquement si lightSchedule est null) -->
+        <fa-icon *ngIf="!lightSchedule" [icon]="faPlus"
+                 class="clock-icon"
+                 (click)="openModal()"
+                 title="Ajouter une programmation">
+        </fa-icon>
+
+        <!-- Icône "Edit" pour modifier une programmation (affichée uniquement si lightSchedule existe) -->
+        <fa-icon *ngIf="lightSchedule" [icon]="faEdit"
+                 class="edit-icon"
+                 (click)="openModal(lightSchedule)"
+                 title="Modifier la programmation">
+        </fa-icon>
+
+        <!-- Icône "Trash" pour supprimer une programmation (affichée uniquement si lightSchedule existe) -->
+        <fa-icon *ngIf="lightSchedule" [icon]="faTrash"
+                 class="delete-icon"
+                 (click)="deleteLightSchedule()"
+                 title="Supprimer la programmation">
+        </fa-icon>
+      </ng-container>
+
+      <!-- Icône "Clock" pour les types autres que "light" -->
+      <fa-icon *ngIf="type !== 'light'" [icon]="faClock"
+               class="clock-icon"
+               (click)="openModal()"
+               title="Planifier">
+      </fa-icon>
+    </div>
+  </div>
+
+  <div class="control-body">
+    <div class="content-center">
+      <!-- Section des valeurs pour les types autres que "light" -->
+      <div *ngIf="type !== 'light' && (currentValue !== undefined && currentValue !== null)" class="value-section">
+        <!-- Affichage spécifique pour l'eau -->
+        <ng-container *ngIf="type === 'water'">
+          <span class="value" *ngIf="isWaterSensorConnected; else sensorDisconnected">
+            {{currentValue | number:'1.0-0'}} {{unit}}
+          </span>
+          <ng-template #sensorDisconnected>
+            <span class="value">0 {{unit}}</span>
+          </ng-template>
+        </ng-container>
+
+        <!-- Affichage pour les autres types (feed, etc.) -->
+        <ng-container *ngIf="type !== 'water'">
+          <span class="value">{{currentValue}} {{unit}}</span>
+        </ng-container>
+
+        <!-- Indicateur de niveau si nécessaire pour les stocks -->
+        <div *ngIf="requiresStock && initialValue > 0" class="stock-level-container">
+          <div class="stock-level-bar">
+            <div class="stock-level-fill"
+                 [style.width.%]="getStockPercentage()"
+                 [ngClass]="{
+                   'level-critical': getStockPercentage() < 20,
+                   'level-warning': getStockPercentage() >= 20 && getStockPercentage() < 50,
+                   'level-good': getStockPercentage() >= 50
+                 }">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section de l'icône pour les types autres que "light" -->
+      <div class="icon-section" *ngIf="type !== 'light'">
+        <img [src]="getImageUrl()"
+             [class.disabled]="requiresStock && currentValue <= 0"
+             alt="{{type}} icon"
+             class="control-icon"/>
+      </div>
+
+      <!-- Section de programmation pour la lumière -->
+      <div *ngIf="type === 'light'" class="light-schedule-section">
+        <div class="schedule-display" *ngIf="lightSchedule">
+          <div class="schedule-time">
+            <span class="time-label">Allumage:</span>
+            <span class="time-value">{{lightSchedule.startTime}}</span>
+          </div>
+          <div class="schedule-time">
+            <span class="time-label">Extinction:</span>
+            <span class="time-value">{{lightSchedule.endTime}}</span>
+          </div>
+        </div>
+        <div *ngIf="!lightSchedule" class="no-schedule">
+          <p style="color: gray; text-align: center;">Aucune programmation</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="status-section">
+    <div class="status" [ngClass]="{
+      'status-active': isActive,
+      'status-error': status === ControlStatus.ERROR || status === ControlStatus.NOT_FOUND,
+      'status-warning': status === ControlStatus.LOW_STOCK,
+      'status-empty': status === ControlStatus.NO_STOCK
+    }">
+      <span class="status-text">{{status}}</span>
+      <span class="status-indicator" [class.on]="isActive"></span>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      <fa-icon [icon]="faExclamationTriangle" class="error-icon"></fa-icon>
+      {{errorMessage}}
+    </div>
+  </div>
+</div>

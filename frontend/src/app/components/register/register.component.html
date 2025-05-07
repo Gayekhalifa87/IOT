@@ -1,0 +1,83 @@
+<div class="register-container">
+  <div class="logo-container">
+    <img *ngIf="logoUrl" [src]="logoUrl" alt="Logo" class="logo">
+  </div>
+
+  <h2>Inscription</h2>
+  
+  <div class="form-container">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Nom d'utilisateur</label>
+        <input id="username" formControlName="username" type="text" class="form-control" placeholder="Nom d'utilisateur">
+        <div *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched) && registerForm.get('username')?.value.length > 0" class="error">
+          Le nom d'utilisateur doit commencer par une lettre (A-Z, a-z), peut contenir des lettres, chiffres ou espaces, et se terminer par un chiffre optionnel
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" class="form-control" placeholder="Email">
+        <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched) && registerForm.get('email')?.value.length > 0" class="error">
+          Email invalide
+        </div>
+      </div>
+      
+      <div class="form-group password-group">
+        <label for="password">Mot de passe</label>
+        <div class="input-with-icon">
+          <input 
+            id="password" 
+            formControlName="password" 
+            [type]="showPassword ? 'text' : 'password'" 
+            class="form-control" 
+            placeholder="Mot de passe">
+          <i 
+            [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" 
+            (click)="togglePasswordVisibility()" 
+            class="eye-icon">
+          </i>
+        </div>
+        <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched) && registerForm.get('password')?.value.length > 0" class="error">
+          Mot de passe requis (minimum 6 caractères)
+        </div>
+      </div>
+      
+      <div class="form-group password-group">
+        <label for="confirmPassword">Confirmer le mot de passe</label>
+        <div class="input-with-icon">
+          <input 
+            id="confirmPassword" 
+            formControlName="confirmPassword" 
+            [type]="showConfirmPassword ? 'text' : 'password'" 
+            class="form-control" 
+            placeholder="Confirmer le mot de passe">
+          <i 
+            [class]="showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" 
+            (click)="toggleConfirmPasswordVisibility()" 
+            class="eye-icon">
+          </i>
+        </div>
+        <div *ngIf="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched) && registerForm.get('confirmPassword')?.value.length > 0" class="error">
+          Confirmation requise
+        </div>
+        <div *ngIf="registerForm.errors?.['mismatch'] && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched) && registerForm.get('confirmPassword')?.value.length > 0" class="error">
+          Les mots de passe ne correspondent pas
+        </div>
+      </div>
+      
+      <div *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+      </div>
+      
+      <div *ngIf="successMessage" class="success">
+        {{ successMessage }}
+      </div>
+      
+      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">S'inscrire</button>
+      
+      <!-- Bouton Retour à la connexion -->
+      <button type="button" class="btn btn-secondary" (click)="onBackToLogin()">Retour à la connexion</button>
+    </form>
+  </div>
+</div>

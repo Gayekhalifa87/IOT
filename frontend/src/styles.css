@@ -1,0 +1,53 @@
+/* Container principal
+.app-container {
+  display: flex;
+  min-height: 100vh;
+} */
+
+/* Contenu principal */
+/* .main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #f5f5f5;
+} */
+
+
+/* .card-content {
+  padding: 1.5rem;
+} */
+
+/* Responsive design */
+/* @media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+  
+  .vaccine-management-container {
+    padding: 0 0.5rem;
+  }
+} */
+
+/* When sidebar is hidden (auth page) */
+/* .main-content.full-width {
+  margin-left: 0;
+} */
+
+/* Form layout */
+/* .form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-field {
+  flex: 1;
+} */
+
+/* @media (max-width: 576px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+} */

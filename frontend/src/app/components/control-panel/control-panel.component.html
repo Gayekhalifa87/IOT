@@ -1,0 +1,32 @@
+<div class="panel">
+  <h2>Contrôles</h2>
+  <div *ngIf="dataLoaded" class="controls-grid">
+    <app-control-item
+      title="Mangeoirs"
+      type="feed"
+      [value]="feedTotal"
+      [unit]="feedUnit"
+      [status]="feedTotal > 0 ? 'Disponible' : 'Vide'"
+      [isActive]="false">
+    </app-control-item>
+
+    <app-control-item
+      title="Abreuvoirs"
+      type="water"
+      [value]="waterTotal"
+      [unit]="waterUnit"
+      [status]="waterTotal > 0 ? 'Disponible' : 'Vide'"
+      [isActive]="false">
+    </app-control-item>
+
+    <app-control-item
+      title="Lumière"
+      type="light"
+      status="Éteinte"
+      [isActive]="false">
+    </app-control-item>
+  </div>
+  <div *ngIf="!dataLoaded" class="loading">
+    Chargement des données...
+  </div>
+</div>

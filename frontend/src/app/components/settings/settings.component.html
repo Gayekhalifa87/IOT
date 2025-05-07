@@ -1,0 +1,236 @@
+<div class="app-container" [ngClass]="{'auth-layout': isAuthPage}">
+  <div class="main-content" [ngClass]="{'full-width': isAuthPage}">
+    <!-- Barre de notification -->
+    <div *ngIf="showNotificationBar" class="notification-bar" [ngClass]="notificationType">
+      <i class="fas" [ngClass]="{
+        'fa-check-circle': notificationType === 'success',
+        'fa-exclamation-circle': notificationType === 'error',
+        'fa-info-circle': notificationType === 'info'
+      }"></i>
+      {{ notificationMessage }}
+    </div>
+
+    <div class="settings-container">
+      <!-- Message de statut -->
+      <div *ngIf="loading" class="status-message loading">
+        <i class="fas fa-spinner fa-spin"></i> Chargement...
+      </div>
+
+      <h1><i class="fas fa-cog"></i> Paramètres du compte</h1>
+
+      <!-- En-tête système -->
+      <div class="system-info">
+        <div class="system-info-item">
+          <i class="fas fa-clock"></i>
+          <span class="label">Date et heure (UTC):</span>
+          <span class="value">{{ currentDateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+        </div>           
+        <div class="system-info-item">
+          <i class="fas fa-user-shield"></i>
+          <span class="label">Utilisateur connecté:</span>
+          <span class="value">{{ userInfo.username || 'Non disponible' }}</span>
+        </div>
+      </div>
+
+      <!-- Informations utilisateur -->
+      <section class="settings-section user-info-section">
+        <h2>
+          <i class="fas fa-user-circle"></i> Informations personnelles
+          <button class="edit-button" (click)="toggleEditMode()" [disabled]="loading">
+            <i class="fas" [ngClass]="editMode ? 'fa-times' : 'fa-edit'"></i>
+            {{ editMode ? 'Annuler' : 'Modifier' }}
+          </button>
+        </h2>
+
+        <!-- Mode lecture -->
+        <div class="user-info-grid" *ngIf="!editMode">
+          <div class="info-item">
+            <span class="info-label">
+              <i class="fas fa-user"></i> Nom d'utilisateur : 
+            </span>
+            <span class="info-value">{{ userInfo.username || 'Non disponible' }}</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">
+              <i class="fas fa-envelope"></i> Email: 
+            </span>
+            <span class="info-value">{{ userInfo.email || 'Non disponible' }}</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">
+              <i class="fas fa-user-tag"></i> Rôle : 
+            </span>
+            <span class="info-value">{{ userInfo.role || 'Non disponible' }}</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">
+              <i class="fas fa-calendar-alt"></i> Membre depuis :
+            </span>
+            <span class="info-value">
+              {{ userInfo.createdAt ? (userInfo.createdAt | date:'dd/MM/yyyy HH:mm:ss') : 'Non disponible' }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Mode édition -->
+        <form *ngIf="editMode" (ngSubmit)="saveUserInfo()" class="edit-form">
+          <div class="form-group">
+            <label for="username">
+              <i class="fas fa-user"></i> Nom d'utilisateur:
+            </label>
+            <div class="input-group">
+              <input
+                type="text"
+                id="username"
+                name="username"
+                [(ngModel)]="editableUserInfo.username"
+                class="form-control"
+                required
+                [placeholder]="userInfo.username"
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">
+              <i class="fas fa-envelope"></i> Email:
+            </label>
+            <div class="input-group">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="editableUserInfo.email"
+                class="form-control"
+                required
+                [placeholder]="userInfo.email"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+              >
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button type="button" class="btn-secondary" (click)="toggleEditMode()">
+              <i class="fas fa-times"></i> Annuler
+            </button>
+            <button type="submit" class="btn-primary" [disabled]="loading">
+              <i class="fas" [ngClass]="loading ? 'fa-spinner fa-spin' : 'fa-save'"></i>
+              {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
+            </button>
+          </div>
+        </form>
+
+        <!-- Photo de profil -->
+        <div class="profile-picture-container">
+          <h3><i class="fas fa-camera"></i> Photo de profil</h3>
+          <div class="profile-picture-wrapper">
+            <img [src]="'assets/images/user-profil.png'" alt="Photo de profil" class="profile-picture">
+            <div class="profile-picture-overlay">
+              <i class="fas fa-camera"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sécurité -->
+      <section class="settings-section security-section">
+        <h2><i class="fas fa-shield-alt"></i> Sécurité</h2>
+
+        <!-- Changement de mot de passe -->
+        <div class="setting-item">
+          <h3><i class="fas fa-key"></i> Changer le mot de passe</h3>
+          <div class="security-warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>La modification du mot de passe entraînera une déconnexion immédiate.</span>
+          </div>
+          <form (submit)="changePassword($event)" class="password-form">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-icon">
+                  <i class="fas fa-lock"></i>
+                </span>
+                <input
+                  [type]="showCurrentPassword ? 'text' : 'password'"
+                  id="currentPassword"
+                  [(ngModel)]="currentPassword"
+                  name="currentPassword"
+                  placeholder="Mot de passe actuel"
+                  required
+                />
+                <span class="toggle-password" (click)="togglePasswordVisibility('current')">
+                  <i class="fas" [ngClass]="showCurrentPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-icon">
+                  <i class="fas fa-key"></i>
+                </span>
+                <input
+                  [type]="showNewPassword ? 'text' : 'password'"
+                  id="newPassword"
+                  [(ngModel)]="newPassword"
+                  name="newPassword"
+                  placeholder="Nouveau mot de passe"
+                  required
+                />
+                <span class="toggle-password" (click)="togglePasswordVisibility('new')">
+                  <i class="fas" [ngClass]="showNewPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-icon">
+                  <i class="fas fa-check-double"></i>
+                </span>
+                <input
+                  [type]="showConfirmPassword ? 'text' : 'password'"
+                  id="confirmPassword"
+                  [(ngModel)]="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="Confirmer le mot de passe"
+                  required
+                />
+                <span class="toggle-password" (click)="togglePasswordVisibility('confirm')">
+                  <i class="fas" [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                </span>
+              </div>
+            </div>
+
+            <button type="submit" [disabled]="loading" class="submit-button">
+              <i class="fas" [ngClass]="loading ? 'fa-spinner fa-spin' : 'fa-save'"></i>
+              {{ loading ? 'Chargement...' : 'Changer le mot de passe' }}
+            </button>
+          </form>
+        </div>
+
+        <!-- Code de connexion -->
+        <div class="setting-item">
+          <h3><i class="fas fa-qrcode"></i> Code de connexion</h3>
+          <div class="security-warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>La génération d'un nouveau code entraînera une déconnexion immédiate.</span>
+          </div>
+          <p class="info-text">
+            <i class="fas fa-info-circle"></i>
+            Votre code de connexion vous permet de vous connecter rapidement à votre compte.
+          </p>
+          <button
+            (click)="generateNewCode()"
+            [disabled]="loading"
+            class="btn-secondary">
+            <i class="fas" [ngClass]="loading ? 'fa-spinner fa-spin' : 'fa-sync'"></i>
+            {{ loading ? 'Génération...' : 'Générer un nouveau code' }}
+          </button>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

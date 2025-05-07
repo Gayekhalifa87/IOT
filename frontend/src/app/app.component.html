@@ -1,0 +1,9 @@
+<div class="app-container" [ngClass]="{'auth-layout': isAuthPage}">
+  <!-- Sidebar masquée sur les pages d'authentification -->
+  <app-sidebar *ngIf="!isAuthPage"></app-sidebar>
+  
+  <!-- Contenu principal -->
+  <div class="main-content" [ngClass]="{'full-width': isAuthPage}">
+    <router-outlet></router-outlet>
+  </div>
+</div>

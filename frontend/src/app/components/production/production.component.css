@@ -1,0 +1,726 @@
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.main-content {
+  flex: 1; /* Prend tout l'espace disponible */
+  margin-left: 250px; /* Ajustez cette valeur en fonction de la largeur de votre sidebar */
+  padding: 20px;
+  overflow-x: hidden; /* Empêche le débordement horizontal */
+}
+
+.dashboard-management-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto; /* Centre le contenu horizontalement */
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Summary Cards - Disposition horizontale */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Cartes côte à côte */
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+/* Disposition verticale pour les autres cartes */
+.cards-grid:not(.summary-cards) {
+  display: grid;
+  grid-template-columns: 1fr; /* Une seule colonne */
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  background-color: #f3f4f6;
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.card-header h2, .card-header h3 {
+  margin: 0;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.number {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.data-table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat-item {
+  padding: 16px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Loading State */
+.loading-state {
+  text-align: center;
+  padding: 40px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f4f6;
+  border-top: 4px solid #14AE5C;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-state {
+  text-align: center;
+  padding: 40px;
+  color: #ef4444;
+}
+
+/* Utility Classes */
+.positive {
+  color: #28a745;
+}
+
+.negative {
+  color: #dc3545;;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0; /* Supprime la marge pour les petits écrans */
+  }
+
+  .summary-cards {
+    grid-template-columns: 1fr; /* Une seule colonne sur les petits écrans */
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .data-table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.data-table th, .data-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.data-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+}
+
+.data-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.data-table .actions {
+  width: 120px;
+}
+
+/* Styles pour les sections de calcul */
+.calculation-card {
+  margin-top: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.result {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+}
+
+.result h3 {
+  margin-bottom: 0.5rem;
+  color: #1e293b;
+}
+
+.result p {
+  margin: 0;
+  color: #4b5563;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.costs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.costs-grid > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mise à jour des boutons d'action dans le tableau */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-buttons button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn.accent {
+  background-color: #2196f3;
+  color: white;
+}
+
+.btn.danger {
+  background-color: #f44336;
+  width: 50px;
+  height: 30px;
+  justify-content: center;
+  color: white;
+}
+
+.subtitle {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* Ajoutez ces styles à votre fichier production.component.css */
+
+.animate-fade {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.result {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.result h3 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+}
+
+.result h4 {
+  color: #495057;
+  margin-bottom: 10px;
+}
+
+.result-summary, .profitability-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.result-item, .detail-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.profit-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #e9ecef;
+}
+
+.profit-indicator .status {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.profit-indicator .percentage {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.profit-indicator.positive {
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+.result div {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #e0e0e0;
+}
+
+.result div:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.result p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.data-table th,
+.data-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.data-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+}
+
+.costs-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9em;
+}
+
+.costs-details span {
+  color: #666;
+}
+
+.no-data {
+  text-align: center;
+  color: #666;
+  padding: 2rem !important;
+}
+
+/* Style spécifique pour la carte de résultat */
+.profit-dashboard-card {
+  background: white;
+}
+
+.profit-dashboard-card .profit-display {
+  padding: 1.5rem;
+}
+
+.profit-indicator-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  border-radius: 8px;
+  gap: 1rem;
+}
+
+/* État positif (Bénéfice) */
+.profit-indicator-box.profit-positive {
+  background: linear-gradient(145deg, rgba(20, 174, 92, 0.1), rgba(20, 174, 92, 0.05));
+  border: 2px solid #14AE5C;
+}
+
+.profit-indicator-box.profit-positive .profit-icon-circle {
+  background: #14AE5C;
+  color: white;
+}
+
+.profit-indicator-box.profit-positive .profit-status-label {
+  color: #14AE5C;
+}
+
+/* État négatif (Perte) */
+.profit-indicator-box.profit-negative {
+  background: linear-gradient(145deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+  border: 2px solid #ef4444;
+}
+
+.profit-indicator-box.profit-negative .profit-icon-circle {
+  background: #ef4444;
+  color: white;
+}
+
+.profit-indicator-box.profit-negative .profit-status-label {
+  color: #ef4444;
+}
+
+/* Cercle de l'icône */
+.profit-icon-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profit-icon-circle i {
+  font-size: 1.5rem;
+}
+
+/* Label du statut */
+.profit-status-label {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Animation */
+.profit-indicator-box {
+  transition: all 0.3s ease;
+}
+
+.profit-indicator-box:hover {
+  transform: translateY(-2px);
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .profit-icon-circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .profit-icon-circle i {
+    font-size: 1.25rem;
+  }
+
+  .profit-status-label {
+    font-size: 1.1rem;
+  }
+}
+
+
+/* Styles pour les notifications */
+.notification-bar {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 25px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s ease-out;
+}
+
+.notification-bar.success {
+  background-color: #14AE5C;
+}
+
+.notification-bar.error {
+  background-color: #ef4444;
+}
+
+.notification-bar.info {
+  background-color: #3b82f6;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.primary {
+  background-color: #007bff; /* Couleur de fond */
+  color: white; /* Couleur du texte */
+}
+
+.primary:hover {
+  background-color: #0056b3; /* Couleur de fond au survol */
+  transform: translateY(-2px); /* Animation de levée au survol */
+}
+
+.primary:active {
+  transform: translateY(0); /* Retour à la position normale lors du clic */
+}
+
+.pagination {
+  display: flex;
+  justify-content: center; /* Centre l'élément de pagination */
+  list-style: none; /* Supprime les puces de la liste */
+  padding: 0; /* Supprime le padding par défaut */
+  margin: 20px 0; /* Ajoute un peu d'espace autour de la pagination */
+}
+
+.pagination .page-item {
+  margin: 0 5px; /* Espacement entre les éléments de pagination */
+}
+
+.pagination .page-link {
+  color: #007bff; /* Couleur du lien */
+  border: 1px solid #007bff; /* Bordure autour des liens */
+  padding: 8px 12px; /* Espacement interne */
+  text-decoration: none; /* Supprime le soulignement */
+  border-radius: 4px; /* Coins arrondis */
+  transition: background-color 0.3s; /* Transition douce pour le survol */
+}
+
+.pagination .page-link:hover {
+  background-color: #f1f1f1; /* Couleur de fond au survol */
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #6c757d; /* Couleur pour les éléments désactivés */
+  border-color: #6c757d; /* Bordure pour les éléments désactivés */
+  cursor: not-allowed; /* Curseur non autorisé pour les éléments désactivés */
+}
+
+
+.profitability-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px; /* Espacement entre les lignes */
+  gap: 15px;
+}
+
+.form-group {
+  flex: 1; /* Chaque groupe de formulaire occupe une part égale de l'espace */
+  margin-right: 15px; /* Espacement entre les groupes */
+}
+
+.form-group:last-child {
+  margin-right: 5; /* Supprime l'espacement du dernier groupe */
+}
+
+.cost-summary {
+  margin-top: 20px; /* Espacement au-dessus du résumé des coûts */
+}
+
+
+.sales-table {
+  margin-top: 20px; /* Espacement au-dessus du tableau des ventes */
+}
+
+.sales-row-container {
+  display: flex; /* Flexbox pour l'alignement en ligne */
+  align-items: center; /* Aligne verticalement les éléments au centre */
+  justify-content: space-between; /* Espace entre les éléments */
+  margin-bottom: 15px; /* Espacement entre les lignes */
+  gap: 15px;
+}
+
+.form-group {
+  flex: 1; /* Chaque groupe de formulaire occupe une part égale de l'espace */
+  margin-right: 15px; /* Espacement entre les groupes */
+}
+
+.form-group:last-child {
+  margin-right: 0; /* Supprime l'espacement du dernier groupe */
+}
+
+.btn.danger {
+  margin-left: 10px; /* Espacement à gauche du bouton pour le séparer des champs */
+}
+
+.invalid {
+  border: 2px solid red;
+}
+.error {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+}

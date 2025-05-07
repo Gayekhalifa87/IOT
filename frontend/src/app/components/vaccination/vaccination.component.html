@@ -1,0 +1,211 @@
+<div class="app-container">
+  <div class="main-content">
+    <div class="vaccine-management-container">
+      <h1>Gestion des vaccinations</h1>
+
+      <!-- Générateur de calendrier -->
+      <div class="card schedule-generator-card">
+        <div class="card-header">
+          <h2>Générer un calendrier de vaccination</h2>
+        </div>
+
+        <div class="card-content">
+          <form [formGroup]="scheduleForm" (ngSubmit)="generateSchedule()">
+            <div class="form-row">
+              <div class="form-field">
+                <label for="startDate">Date de début</label>
+                <input type="date" id="startDate" formControlName="startDate" [min]="minDate">
+                <span class="error" *ngIf="scheduleForm.get('startDate')?.invalid && scheduleForm.get('startDate')?.touched">
+                  Date requise et ne peut pas être antérieure à aujourd'hui
+                </span>
+              </div>
+
+              <div class="form-field">
+                <label for="chickenType">Type de volaille</label>
+                <select id="chickenType" formControlName="chickenType">
+                  <option *ngFor="let type of chickenTypes" [value]="type.value">
+                    {{ type.label }}
+                  </option>
+                </select>
+                <span class="error" *ngIf="scheduleForm.get('chickenType')?.invalid && scheduleForm.get('chickenType')?.touched">
+                  Type de volaille requis
+                </span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="numberOfChickens">Nombre de volailles</label>
+                <input type="number" id="numberOfChickens" formControlName="numberOfChickens">
+                <span class="error" *ngIf="scheduleForm.get('numberOfChickens')?.invalid && scheduleForm.get('numberOfChickens')?.touched">
+                  Veuillez entrer un nombre valide (minimum 1)
+                </span>
+              </div>
+
+              <div class="form-field">
+                <label for="scheduleType">Type de calendrier</label>
+                <select id="scheduleType" formControlName="scheduleType">
+                  <option value="standard">Standard</option>
+                  <option value="complet">Complet</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="btn primary" [disabled]="scheduleForm.invalid">
+              <i class="fas fa-calendar"></i>
+              Générer le calendrier
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Barre de notification -->
+      <div class="notification-bar" *ngIf="showNotificationBar" [ngClass]="'notification-' + notificationType">
+        {{ notificationMessage }}
+        <button (click)="showNotificationBar = false">Fermer</button>
+      </div>
+
+      <!-- Vaccins à venir -->
+      <div class="card vaccines-card">
+        <div class="card-header">
+          <h2>Vaccins à venir</h2>
+        </div>
+
+        <div class="card-content">
+          <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+          <table mat-table [dataSource]="dataSource" class="vaccine-table" *ngIf="dataSource.data.length > 0">
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Vaccin</th>
+              <td mat-cell *matCellDef="let vaccine" [title]="vaccineDescriptions[vaccine.name] || 'Pas de description disponible'">
+                {{ vaccine.name }}
+              </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="scheduledDate">
+              <th mat-header-cell *matHeaderCellDef>Date prévue</th>
+              <td mat-cell *matCellDef="let vaccine">{{ formatDate(vaccine.dateAdministered) }}</td>
+            </ng-container>
+          
+            <ng-container matColumnDef="weekNumber">
+              <th mat-header-cell *matHeaderCellDef>Semaine</th>
+              <td mat-cell *matCellDef="let vaccine">{{ vaccine.weekNumber }}</td>
+            </ng-container>
+          
+            <ng-container matColumnDef="numberOfChickens">
+              <th mat-header-cell *matHeaderCellDef>Nombre de volailles</th>
+              <td mat-cell *matCellDef="let vaccine">{{ vaccine.numberOfChickens }}</td>
+            </ng-container>
+          
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let vaccine">
+                <div class="action-buttons">
+                  <button class="btn success" (click)="markAsAdministered(vaccine)">
+                    <i class="fas fa-check"></i> Marquer comme administré
+                  </button>
+                  <button class="btn danger" (click)="deleteVaccine(vaccine._id)">
+                    <i class="fas fa-trash"></i> Supprimer
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+
+          <div class="empty-state" *ngIf="upcomingVaccines.length === 0">
+            <i class="fas fa-calendar-times"></i>
+            <p>Aucun vaccin à venir</p>
+            <p>Utilisez le générateur ci-dessus pour créer un calendrier de vaccination</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Préférences de notification -->
+      <div class="card notification-card">
+        <div class="card-header">
+          <h2>Préférences de notification</h2>
+        </div>
+
+        <div class="card-content">
+          <form [formGroup]="notificationForm" (ngSubmit)="updateNotificationSettings()">
+            <div class="form-row">
+              <div class="form-field notification-toggle">
+                <label>
+                  <input type="checkbox" formControlName="enableEmailReminders">
+                  Activer les rappels par email
+                </label>
+              </div>
+
+              <div class="form-field notification-toggle">
+                <label>
+                  <input type="checkbox" formControlName="dailySummary">
+                  Recevoir un résumé hebdomadaire
+                </label>
+              </div>
+            </div>
+
+            <div class="form-row" *ngIf="notificationForm.get('enableEmailReminders')?.value">
+              <div class="form-field">
+                <label for="reminderDays">Jours avant la date de vaccination</label>
+                <input type="number" formControlName="reminderDays">
+                <span class="error" *ngIf="notificationForm.get('reminderDays')?.invalid && notificationForm.get('reminderDays')?.touched">
+                  Entrez une valeur entre 1 et 7
+                </span>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button type="submit" class="btn primary" [disabled]="notificationForm.invalid">
+                <i class="fas fa-save"></i>
+                Enregistrer les préférences
+              </button>
+
+              <button type="button" class="btn accent" (click)="sendWeeklySummary()">
+                <i class="fas fa-paper-plane"></i>
+                Envoyer un résumé hebdomadaire maintenant
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Historique des vaccins administrés -->
+      <div class="card vaccines-card">
+        <div class="card-header">
+          <h2>Historique des vaccinations</h2>
+        </div>
+
+        <div class="card-content">
+          <table class="vaccine-table" *ngIf="administeredVaccines.length > 0">
+            <thead>
+              <tr>
+                <th>Vaccin</th>
+                <th>Date d'administration</th>
+                <th>Nombre de volailles</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let vaccine of administeredVaccines">
+                <td>{{ vaccine.name }}</td>
+                <td>{{ formatDate(vaccine.administeredDate) }}</td>
+                <td>{{ vaccine.numberOfChickens }}</td>
+                <td>{{ vaccine.notes }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="empty-state" *ngIf="administeredVaccines.length === 0">
+            <i class="fas fa-history"></i>
+            <p>Aucun vaccin administré</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

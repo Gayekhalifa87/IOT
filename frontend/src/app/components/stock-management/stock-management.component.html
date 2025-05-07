@@ -1,0 +1,223 @@
+<div class="main-container">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+
+    <!-- Contenu principal -->
+    <div class="stock-dashboard-container">
+        <!-- En-tête du tableau de bord -->
+        <div class="dashboard-header">
+            <h1>Gestion des Stocks d'Alimentation</h1>
+            <div class="dashboard-actions">
+                <button class="btn btn-primary btn-animation" (click)="resetForm()" *ngIf="editMode">
+                    <i class="fas fa-plus"></i> Nouveau Stock
+                </button>
+            </div>
+        </div>
+
+        <!-- Contenu du tableau de bord -->
+        <div class="dashboard-content">
+            <!-- Statistiques, Eau et Alertes -->
+            <div class="stats-alerts-container">
+                <!-- Carte d'eau -->
+                <div class="card water-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Réserve d'Eau</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="water-info">
+                            <i class="fas fa-tint water-icon"></i>
+                            <div class="water-details">
+                                <div class="water-quantity" *ngIf="isWaterSensorConnected; else noSensor">
+                                    {{ waterQuantity | number:'1.0-0' }} L
+                                    <span class="water-percentage">({{ waterLevel | number:'1.0-0' }}%)</span>
+                                </div>
+                                <ng-template #noSensor>
+                                    <div class="water-quantity error-text">Capteur déconnecté</div>
+                                </ng-template>
+                                <div class="water-label">Quantité disponible (via capteur)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistiques (uniquement pour les aliments) -->
+                <div class="card stats-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Aperçu des Stocks (Aliments)</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="stats-grid">
+                            <div class="stat-item" *ngFor="let stat of stockStats; let i = index" [attr.data-index]="i">
+                                <div class="stat-value">{{ stat.totalQuantity | number:'1.0-2' }} {{ stat.unit }}</div>
+                                <div class="stat-label">{{ stat.type }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alertes (inclus l'eau via capteur) -->
+                <div class="card alerts-card" *ngIf="lowStockAlerts.length > 0">
+                    <div class="card-header">
+                        <h2 class="card-title">Alertes ({{ lowStockAlerts.length }})</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="alerts-list">
+                            <ul class="list">
+                                <li class="list-item alert-item" *ngFor="let alert of lowStockAlerts; let i = index" [attr.data-index]="i">
+                                    <i class="fas fa-exclamation-triangle warn"></i>
+                                    <div class="list-item-title">{{ alert.type }}</div>
+                                    <div class="list-item-line" *ngIf="!alert.error">
+                                        Stock bas: {{ alert.currentStock | number:'1.0-2' }} {{ alert.unit }} (seuil: {{ alert.minQuantity | number:'1.0-2' }} {{ alert.unit }})
+                                    </div>
+                                    <div class="list-item-line error-text" *ngIf="alert.error">
+                                        {{ alert.error }}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulaire et Tableau de stocks (uniquement pour les aliments) -->
+            <div class="main-content-container">
+                <!-- Formulaire d'ajout/modification (uniquement pour les aliments) -->
+                <div class="card form-card">
+                    <div class="card-header">
+                        <h2 class="card-title">{{ editMode ? 'Modifier le Stock' : 'Ajouter un Nouveau Stock' }}</h2>
+                    </div>
+                    <div class="card-content">
+                        <form [formGroup]="stockForm" (ngSubmit)="onSubmit()">
+                            <div class="form-row">
+                                <div class="form-group input-animation">
+                                    <label for="type">Type de produit</label>
+                                    <input id="type" formControlName="type" placeholder="Ex: Maïs" class="form-control">
+                                    <div class="error" *ngIf="stockForm.get('type')?.hasError('required')">Type requis</div>
+                                    <div class="error" *ngIf="stockForm.get('type')?.value?.toLowerCase() === 'eau'">Les stocks d'eau ne sont pas gérés manuellement, utilisez le capteur d'eau</div>
+                                </div>
+
+                                <div class="form-group input-animation">
+                                    <label for="category">Catégorie</label>
+                                    <select id="category" formControlName="category" class="form-control">
+                                        <option value="nourriture">Nourriture</option>
+                                        <option value="supplements">Suppléments</option>
+                                        <option value="medicaments">Médicaments</option>
+                                        <option value="autres">Autres</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group input-animation">
+                                    <label for="quantity">Quantité</label>
+                                    <input id="quantity" type="number" formControlName="quantity" class="form-control">
+                                    <div class="error" *ngIf="stockForm.get('quantity')?.hasError('min')">La quantité ne peut pas être négative</div>
+                                </div>
+
+                                <div class="form-group input-animation">
+                                    <label for="unit">Unité</label>
+                                    <select id="unit" formControlName="unit" class="form-control">
+                                        <option value="kg">Kilogrammes (kg)</option>
+                                        <option value="g">Grammes (g)</option>
+                                        <option value="unité">Unités</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group input-animation">
+                                    <label for="minQuantity">Seuil d'alerte</label>
+                                    <input id="minQuantity" type="number" formControlName="minQuantity" class="form-control">
+                                    <small class="form-hint">Seuil pour alertes de stock bas</small>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary button-animation" [disabled]="stockForm.invalid || isLoading">
+                                    <i class="fas fa-{{ editMode ? 'save' : 'plus' }}"></i>
+                                    {{ editMode ? 'Mettre à jour' : 'Ajouter' }}
+                                </button>
+                                <button type="button" class="btn btn-cancel button-animation cancel-button" (click)="resetForm()" *ngIf="editMode">Annuler</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tableau des stocks (uniquement pour les aliments) -->
+                <div class="card table-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Inventaire des Stocks (Aliments)</h2>
+                        <div class="table-actions">
+                            <div class="form-group search-field input-animation">
+                                <label for="search">Rechercher</label>
+                                <input id="search" class="form-control" (keyup)="applyFilter($event)" placeholder="Ex: maïs">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Produit</th>
+                                        <th>Quantité</th>
+                                        <th>Catégorie</th>
+                                        <th>Dernière MAJ</th>
+                                        <th>Statut</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let stock of dataSource.data" [attr.data-id]="stock._id">
+                                        <td>{{ stock.type }}</td>
+                                        <td>{{ stock.quantity | number:'1.0-2' }} {{ stock.unit }}</td>
+                                        <td>{{ stock.category }}</td>
+                                        <td>{{ stock.lastUpdated | date:'dd/MM/yyyy' }}</td>
+                                        <td>
+                                            <span class="status-badge {{ getStatusClass(getStockStatus(stock)) }}">
+                                                {{ getStockStatus(stock) }}
+                                            </span>
+                                        </td>
+                                        <td class="actions-cell">
+                                            <button class="btn btn-icon icon-button-animation" (click)="viewStockDetails(stock)" title="Voir les détails">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-icon icon-button-animation" (click)="editStock(stock)" title="Modifier">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-icon icon-button-animation" (click)="deleteStock(stock)" title="Supprimer">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Pagination -->
+                            <mat-paginator *ngIf="paginator"
+                                [pageSizeOptions]="[5, 10, 20]"
+                                showFirstLastButtons
+                                [length]="dataSource.data.length"
+                                [pageIndex]="paginator.pageIndex"
+                                [pageSize]="paginator.pageSize"
+                                (page)="paginator.pageIndex = $event.pageIndex">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification personnalisée -->
+        <div class="custom-notification-bar {{ notificationType }}" *ngIf="showNotificationBar">
+            <div class="notification-content">
+                <i class="fas fa-{{ notificationType === 'success' ? 'check-circle' : 
+                                notificationType === 'error' ? 'exclamation-circle' : 
+                                'info-circle' }}"></i>
+                <span>{{ notificationMessage }}</span>
+            </div>
+            <button class="btn btn-icon close-button" (click)="showNotificationBar = false">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+</div>

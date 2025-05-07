@@ -1,0 +1,169 @@
+<div class="app-container">
+  <!-- Contenu principal -->
+  <div class="main-content">
+    <div class="historique-container">
+      <h2>Historique du Poulailler</h2>
+
+      <!-- Filtres -->
+      <div class="carte-filtre">
+        <div class="carte-contenu">
+          <form class="filtre-form">
+            <div class="form-group">
+              <label for="periode">Période:</label>
+              <select
+                id="periode"
+                (change)="onPeriodeChange($event)"
+                [(ngModel)]="periodeSelectionnee"
+                name="periode"
+              >
+                <option *ngFor="let periode of periodes" [value]="periode.value">
+                  {{ periode.label }}
+                </option>
+              </select>
+            </div>
+
+            <div *ngIf="afficherDatesPersonnalisees" class="form-group dates-container">
+              <div class="date-input">
+                <label for="dateDebut">Date de début:</label>
+                <input
+                  id="dateDebut"
+                  type="date"
+                  [(ngModel)]="dateDebut"
+                  name="dateDebut"
+                />
+              </div>
+
+              <div class="date-input">
+                <label for="dateFin">Date de fin:</label>
+                <input
+                  id="dateFin"
+                  type="date"
+                  [(ngModel)]="dateFin"
+                  name="dateFin"
+                />
+              </div>
+            </div>
+
+            <div class="buttons-container">
+              <button class="btn btn-primary" (click)="appliquerFiltres()">
+                Appliquer
+              </button>
+              <button 
+                class="btn btn-primary me-2" 
+                (click)="exporterDonnees('csv')" 
+                [disabled]="loading">
+                <i class="fas fa-file-csv me-1"></i>
+                Exporter en CSV
+              </button>
+              <button 
+                class="btn btn-success" 
+                (click)="exporterDonnees('excel')" 
+                [disabled]="loading">
+                <i class="fas fa-file-excel me-1"></i>
+                Exporter en Excel
+              </button>
+              <button 
+                class="btn btn-danger" 
+                (click)="exporterDonnees('pdf')" 
+                [disabled]="loading">
+                <i class="fas fa-file-pdf me-1"></i>
+                Exporter en PDF
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      <!-- <div class="mt-3">
+        <div *ngIf="loading" class="alert alert-info">
+          <i class="fas fa-spinner fa-spin me-2"></i>
+          Export en cours...
+        </div>
+        <div *ngIf="error" class="alert alert-danger">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          {{ error }}
+        </div>
+        <div *ngIf="success" class="alert alert-success">
+          <i class="fas fa-check-circle me-2"></i>
+          {{ success }}
+        </div>
+      </div> -->
+
+      <!-- Historique des actions -->
+      <div class="carte">
+        <div class="carte-entete">
+          <h3>Historique des Actions</h3>
+        </div>
+        <div class="carte-contenu">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <!-- <th>Action</th> -->
+                <th>Description</th>
+                <th>Données</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let entry of filteredHistory">
+                <td>{{ entry.createdAt | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ entry.type }}</td>
+                <!-- <td>{{ entry.action }}</td> -->
+                <td>{{ entry.description }}</td>
+                <td>{{ formatData(entry.data) }}</td> <!-- Appel de la méthode formatData -->
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Pagination -->
+          <div class="pagination" *ngIf="totalItems > 0">
+            <!-- Bouton Précédent -->
+            <button 
+              class="pagination-nav" 
+              [disabled]="currentPage === 1"
+              (click)="onPageChange(currentPage - 1)">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+          
+            <!-- Première page -->
+            <button 
+              *ngIf="currentPage > 2"
+              (click)="onPageChange(1)"
+              [class.active]="currentPage === 1">
+              1
+            </button>
+          
+            <!-- Pages autour de la page courante avec ellipses -->
+            <ng-container *ngFor="let page of getVisiblePages()">
+              <button 
+                *ngIf="page !== -1"
+                (click)="onPageChange(page)"
+                [class.active]="page === currentPage">
+                {{ page }}
+              </button>
+              <span *ngIf="page === -1" class="ellipsis">...</span>
+            </ng-container>
+          
+            <!-- Dernière page -->
+            <button 
+              *ngIf="currentPage < totalPages - 1"
+              (click)="onPageChange(totalPages)"
+              [class.active]="currentPage === totalPages">
+              {{ totalPages }}
+            </button>
+          
+            <!-- Bouton Suivant -->
+            <button 
+              class="pagination-nav" 
+              [disabled]="currentPage === totalPages"
+              (click)="onPageChange(currentPage + 1)">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
