@@ -1,0 +1,15 @@
+{
+  "routes": [
+    "/alimentation",
+    "/dashboard",
+    "/forget-password",
+    "/historiques",
+    "/login",
+    "/parametres",
+    "/productions",
+    "/register",
+    "/stocks",
+    "/stocks/details",
+    "/vaccinations"
+  ]
+}
