@@ -8,6 +8,9 @@ import { EnvironmentalService } from '../../services/environmental.service';
 import { Subscription, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+
+
 @Component({
   selector: 'app-environment-card',
   standalone: true,
@@ -111,6 +114,9 @@ export class EnvironmentCardComponent implements OnInit, OnDestroy {
     }
   }
 
+ 
+  
+
   getIcon(): IconDefinition | string {
     switch (this.icon) {
       case 'thermometer':
@@ -126,9 +132,15 @@ export class EnvironmentCardComponent implements OnInit, OnDestroy {
     }
   }
 
+  isFontAwesomeIcon(icon: IconDefinition | string): icon is IconDefinition {
+    return typeof icon === 'object' && icon !== null && 'iconName' in icon;
+  }
+  
+
   // Vérifie si l'icône est une instance de IconDefinition
+
   isIconDefinition(): boolean {
-    return this.currentIcon instanceof Object && 'iconName' in this.currentIcon;
+    return typeof this.currentIcon === 'object' && this.currentIcon !== null && 'iconName' in this.currentIcon;
   }
 
   isColoredIcon(): boolean {

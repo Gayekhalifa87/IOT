@@ -2,12 +2,23 @@
   <div class="card-header">
     <h3>
       {{title}}
-      <ng-container *ngIf="isIconDefinition(); else imageIcon">
-        <fa-icon [icon]="currentIcon" [class.rotate]="isActive" [class.colored-icon]="isColoredIcon()"></fa-icon>
+      <ng-container *ngIf="isFontAwesomeIcon(currentIcon); else imageIcon">
+        <fa-icon
+          [icon]="currentIcon"
+          [class.rotate]="isActive"
+          [class.colored-icon]="isColoredIcon()"
+        ></fa-icon>
       </ng-container>
+      
       <ng-template #imageIcon>
-        <img [src]="currentIcon" class="icon-image" />
+        <img
+          [src]="currentIcon"
+          alt="custom icon"
+          class="custom-icon"
+          [class.rotate]="isActive"
+        />
       </ng-template>
+      
     </h3>
   </div>
   <div class="card-body" *ngIf="!hasControls">
